@@ -1,0 +1,16 @@
+﻿<Solution>
+  <Folder Name="/Automation/">
+    <Project Path="build\Build.csproj" Type="Classic C#">
+      <Configuration Solution="Debug|Any CPU" Project="Debug|Any CPU|NoBuild" />
+      <Configuration Solution="Release|Any CPU" Project="Release|Any CPU|NoBuild" />
+    </Project>
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="Readme.md" />
+    <File Path="Changelog.md" />
+    <File Path="Build\Build.Configuration.cs" />
+    <File Path="Directory.Build.props" />
+  </Folder>
+  <Project Path="source\WPF.UI.Abstractions\WPF.UI.Abstractions.csproj" Type="Classic C#" />
+  <Project Path="source\WPF.UI\WPF.UI.csproj" Type="Classic C#" />
+</Solution>

@@ -1,0 +1,46 @@
+﻿<Page x:Class="SheetManager.Views.CreateSheetsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:ui="http://Kapibara/xaml"
+      ScrollViewer.CanContentScroll="False">
+    <Grid Margin="10">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <ui:Card Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+                <DockPanel LastChildFill="True">
+                    <StackPanel>
+                        <TextBox 
+                            DockPanel.Dock="Left"
+                            Text="{Binding Prefix}"/>
+                        <ui:NumberBox
+                            DockPanel.Dock="Left"
+                            PlaceholderText="Номер"
+                            MaxDecimalPlaces="0"
+                            Value="{Binding NumberFrame}"/>
+                        <TextBox 
+                            DockPanel.Dock="Left"
+                            Text="{Binding Suffix}"/>
+                    </StackPanel>
+                </DockPanel>
+                
+                <ComboBox
+                    ItemsSource="{Binding FramesProject}"
+                    SelectedItem="{Binding SelectedFrame}"/>
+            </StackPanel>
+            
+           
+        </ui:Card>
+        
+        <ui:Card Grid.Row="1">
+            
+            
+        </ui:Card>
+    </Grid>
+</Page>

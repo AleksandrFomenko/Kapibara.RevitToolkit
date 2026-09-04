@@ -1,0 +1,81 @@
+﻿<ui:FluentWindow
+    x:Class="ActiveView.Views.ActiveViewView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ui="http://Kapibara/xaml"
+    xmlns:converters="clr-namespace:ActiveView.Views.Converters"
+    mc:Ignorable="d"
+    WindowStartupLocation="CenterScreen"
+    Height="600"
+    Width="300">
+    <ui:FluentWindow.Resources>
+        <converters:BoolVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </ui:FluentWindow.Resources>
+
+    <DockPanel>
+        <ui:TitleBar DockPanel.Dock="Top" Title="Active View" />
+
+        <ui:Button
+            DockPanel.Dock="Bottom"
+            Appearance="Primary"
+            Content="Execute"
+            HorizontalAlignment="Center"
+            Margin="0,10"
+            Command="{Binding ExecuteCommand}"
+            Icon="{ui:SymbolIcon EyeTracking24}" />
+
+        <StackPanel Margin="10,8" VerticalAlignment="Top">
+
+            <ui:Card Margin="0,0,0,8">
+                <StackPanel>
+                    <TextBlock Text="{Binding HeadingOptionsSelection}" />
+                    <ComboBox
+                        Margin="0,6,0,0"
+                        ItemsSource="{Binding Options}"
+                        SelectedItem="{Binding SelectionOption}"
+                        DisplayMemberPath="Name" />
+                </StackPanel>
+            </ui:Card>
+
+            <ui:Card Margin="0,0,0,8">
+                <StackPanel>
+                    <TextBlock Text="{Binding HeadingParameterSelection}" />
+                    <ui:TextBox
+                        Margin="0,6,0,6"
+                        PlaceholderText="Поиск..."
+                        Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" />
+                    <ComboBox
+                        ItemsSource="{Binding Parameters}"
+                        SelectedItem="{Binding Parameter}" />
+                </StackPanel>
+            </ui:Card>
+
+            <ui:Card Margin="0,0,0,8">
+                <StackPanel>
+                    <TextBlock Text="{Binding HeadingValue}" />
+                    <TextBox
+                        Margin="0,6,0,0"
+                        Text="{Binding Value}"
+                        Visibility="{Binding IsTextBoxVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <ui:ToggleSwitch
+                        Margin="0,6,0,0"
+                        IsChecked="{Binding BoolValue}"
+                        Visibility="{Binding IsToggleVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+                </StackPanel>
+            </ui:Card>
+
+            <ui:Card>
+                <StackPanel>
+                    <TextBlock Text="{Binding HeadingNotEmpty}" />
+                    <ui:ToggleSwitch
+                        Margin="0,6,0,0"
+                        IsChecked="{Binding SkipNotEmpty}" />
+                </StackPanel>
+            </ui:Card>
+
+        </StackPanel>
+    </DockPanel>
+
+</ui:FluentWindow>

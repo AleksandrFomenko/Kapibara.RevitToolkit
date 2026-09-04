@@ -1,0 +1,14 @@
+<RevitAddIns>
+    <AddIn Type="Application">
+        <Name>Kapibara.RevitToolKit</Name>
+        <Assembly>Kapibara.RevitToolKit\Kapibara.RevitToolKit.dll</Assembly>
+        <AddInId>4FA80967-C6FE-4FE2-98FA-7A0E4E562C92</AddInId>
+        <FullClassName>Kapibara.RevitToolKit.Application</FullClassName>
+        <VendorId>Development</VendorId>
+        <VendorDescription></VendorDescription>
+    </AddIn>
+    <ManifestSettings>
+        <UseRevitContext>False</UseRevitContext>
+        <ContextName>Kapibara.RevitToolKit</ContextName>
+    </ManifestSettings>
+</RevitAddIns>

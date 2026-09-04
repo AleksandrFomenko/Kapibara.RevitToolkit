@@ -1,0 +1,89 @@
+﻿<Page x:Class="SortingCategories.Views.SubFamilies"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:controls="http://Kapibara/xaml"
+      mc:Ignorable="d"
+      ScrollViewer.CanContentScroll="False">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        
+        <controls:Card Grid.Row="0" Margin="0,15" VerticalAlignment="Top">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" FontSize="16" Text="Сортировка вложенных семейств"/>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="50"/>
+                        <RowDefinition  Height="50"/>
+                        <RowDefinition  Height="50"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <TextBlock Text="Управляющий параметр"
+                                   Width="200"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"/>
+                        <ComboBox
+                            MinWidth="100"
+                            HorizontalAlignment="Left"
+                            ItemsSource="{Binding ViewModel.ProjectParameters}"
+                            SelectedItem="{Binding ViewModel.ParameterForSort}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" >
+                        <TextBlock Text="Параметр группировки"
+                                   Width="200"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"/>
+                        
+                        <ComboBox
+                            MinWidth="100"
+                            HorizontalAlignment="Left"
+                            ItemsSource="{Binding ViewModel.ProjectParameters}"
+                            SelectedItem="{Binding ViewModel.ParameterForGroup}"/>
+                        <Separator Width="20" Visibility="Hidden"/>
+                        <TextBlock Text="Значение"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"/>
+                        
+                        <Separator Width="20" Visibility="Hidden"/>
+                        <TextBox  MinWidth = "150"
+                                  Height="50"
+                                  VerticalContentAlignment="Center"
+                                  Text="{Binding ViewModel.GroupValue}" />
+                                  
+                    </StackPanel>
+                    
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock Text="Выбор алгоритма"
+                                   Width="200"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center" />
+                        <ComboBox
+                            MinWidth="100"
+                            HorizontalAlignment="Left"
+                            ItemsSource="{Binding ViewModel.Algorithms}"
+                            SelectedItem="{Binding ViewModel.Algorithm}"
+                            DisplayMemberPath="Name"/>
+                    </StackPanel>
+                    
+                   
+                </Grid>
+            </Grid>
+        </controls:Card>
+        
+        <controls:Button Grid.Row="2"
+                   HorizontalAlignment="Center"
+                   Content="Execute"
+                   Appearance="Primary"
+                   Command="{Binding ViewModel.ExecuteCommand}"
+                   Icon="{controls:SymbolIcon ArrowSortDownLines24}" />
+    </Grid>
+</Page>

@@ -1,0 +1,166 @@
+﻿<Page x:Class="SortingCategories.Views.MainFamilies"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:ui="http://Kapibara/xaml"
+      mc:Ignorable="d"
+      ScrollViewer.CanContentScroll="False">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="1" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3.5*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <ui:Card Grid.Column="0" Margin="0,15">
+                <StackPanel >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontSize="16">Сортировка основных семейств</TextBlock>
+                        <Separator Visibility = "Hidden" Width="250"/>
+                        <ui:Button HorizontalAlignment="Center"
+                                   Content="Воздуховоды"
+                                   Appearance="Primary"
+                                   Command="{Binding ViewModel.DuctPatternCommand}"
+                                   Icon="{ui:SymbolIcon Production24}" />
+                        <Separator Visibility="Hidden" Width="10"></Separator>
+                        <ui:Button HorizontalAlignment="Center"
+                                   Content="Трубопроводы ОВ"
+                                   Appearance="Primary"
+                                   Command="{Binding ViewModel.PipelineHotPatternCommand}"
+                                   Icon="{ui:SymbolIcon Pipeline24}" />
+                        <Separator Visibility="Hidden" Width="10"></Separator>
+                        <ui:Button HorizontalAlignment="Center"
+                                   Content="Трубопроводы ВК"
+                                   Appearance="Primary"
+                                   Command="{Binding ViewModel.PipelineWaterPatternCommand}"
+                                   Icon="{ui:SymbolIcon Pipeline24}" />
+                        <Separator Visibility="Hidden" Width="10"></Separator>
+                        <ui:Button HorizontalAlignment="Center"
+                                   Appearance="Primary"
+                                   Content="Очистить"
+                                   Command="{Binding ViewModel.ClearCommand}"
+                                   Icon="{ui:SymbolIcon Delete48}" />
+                    </StackPanel>
+                    <Separator Visibility = "Hidden" Height="25"/>
+                    <Grid Height="40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="0.5*" />
+                            <ColumnDefinition Width="1.5*" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Grid.Column="0" Margin="5, 0,0,0">Выбрать<LineBreak/>нужные</TextBlock>
+                        <TextBlock Grid.Column="1" TextAlignment="Center"> Выбор категорий</TextBlock>
+                        <TextBlock Grid.Column="2" TextAlignment="Center"> Параметр<LineBreak/>для сортировки</TextBlock>
+                        <TextBlock Grid.Column="3" TextAlignment="Center"> Параметр<LineBreak/>для группировки</TextBlock>
+                    </Grid>
+                    
+                    <Separator Visibility = "Hidden" Height="15"/>
+                    
+                    <Grid Height="50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="0.5*" />
+                            <ColumnDefinition Width="1.5*" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <CheckBox Grid.Column="0" IsChecked="{Binding ViewModel.IsAllChecked}" Margin="5, 0,0,0"/>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" FlowDirection = "RightToLeft">
+                            <Separator Visibility="Hidden" Width="25"></Separator>
+                            <ui:Button HorizontalAlignment="Center"
+                                       Content="Удалить"
+                                       Appearance="Caution"
+                                       Command="{Binding ViewModel.DeleteCommand}"
+                                       Icon="{ui:SymbolIcon Delete24}" />
+                            <Separator Visibility="Hidden" Width="10"></Separator>
+                            <ui:Button HorizontalAlignment="Center"
+                                       Content="Добавить"
+                                       Appearance="Light"
+                                       Command="{Binding ViewModel.AddCommand}"
+                                       Icon="{ui:SymbolIcon ChannelAdd24}" />
+                        </StackPanel>
+
+                        <ComboBox Grid.Column="2"
+                                  Margin="5, 0"
+                                  ItemsSource="{Binding ViewModel.ProjectParameters}"
+                                  SelectedItem="{Binding ViewModel.ParameterForSort}"/>
+                        <ComboBox Grid.Column="3"
+                                  Margin="5, 0"
+                                  ItemsSource="{Binding ViewModel.ProjectParameters}"
+                                  SelectedItem="{Binding ViewModel.ParameterForGroup}"/> 
+                    </Grid>
+                    
+                    <Separator Opacity="0" Height="10"/>
+                    
+                    <ListBox 
+                        ItemsSource="{Binding ViewModel.RevitCategories}"
+                        SelectedItem="{Binding ViewModel.RevitCategory}"
+                        MaxHeight="350">
+                        <ListBox.ItemTemplate >
+                                <DataTemplate>
+                                    <Grid Height="50">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.5*" />
+                                            <ColumnDefinition Width="2*" />
+                                            <ColumnDefinition Width="0.5*" />
+                                            <ColumnDefinition Width="1.5*" />
+                                        </Grid.ColumnDefinitions>
+                                        <CheckBox Grid.Column="0" IsChecked="{Binding IsChecked}" />
+                                        <ComboBox Grid.Column="1"
+                                                  ItemsSource="{Binding Categories}"
+                                                  SelectedItem="{Binding Category}"
+                                                  Margin="5, 0"
+                                                  DisplayMemberPath="Name"/>
+                                        <TextBox Grid.Column="2" Text="{Binding Sorting}"
+                                                 TextAlignment="Center"
+                                                 Margin="5, 0"/>
+                                        <TextBox Grid.Column="3" Text="{Binding Group}" Margin="5, 0"/>
+                                        
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            
+                            <ListBox.ItemContainerStyle >
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="Height" Value="45"/>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                    </ListBox>
+                </StackPanel>
+            </ui:Card>
+        </Grid>
+        
+        <ui:Card Grid.Row="2" Grid.Column="0" Margin="0,15">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Выбор элементов" VerticalAlignment="Center"/>
+                <ComboBox
+                          Margin="5, 0"
+                          ItemsSource="{Binding ViewModel.Options}"
+                          SelectedItem="{Binding ViewModel.Option}"
+                          DisplayMemberPath="Name"/>
+                <Separator Width="20" Visibility="Hidden" />
+                <ui:ToggleSwitch
+                    IsChecked="{Binding ViewModel.CheckSubComponents}"
+                    OffContent="Не учитывать вложенные семейства" OnContent="Учитывать вложенные семейства"/>
+                
+            </StackPanel>
+        </ui:Card>
+        
+        <ui:Button Grid.Row="3"
+                   HorizontalAlignment="Center"
+                   Content="Execute"
+                   Appearance="Primary"
+                   Command="{Binding ViewModel.ExecuteCommand}"
+                   Icon="{ui:SymbolIcon ArrowSortDownLines24}" />
+    </Grid>
+</Page>

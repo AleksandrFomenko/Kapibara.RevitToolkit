@@ -1,0 +1,355 @@
+﻿<ui:FluentWindow
+    x:Class="ExporterModels.Views.ExporterModelsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:attachedProperties="clr-namespace:ExporterModels.AttachedProperties"
+    xmlns:ui="http://Kapibara/xaml"
+    mc:Ignorable="d"
+    WindowStartupLocation="CenterScreen"
+    Height="950"
+    Width="1400">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ui:TitleBar
+            Grid.Row="0"
+            Title="{Binding TitleWindow}"
+            Icon="{ui:SymbolIcon ArrowExportLtr24}">
+
+            <ui:TitleBar.TrailingContent>
+                <ui:Button
+                    VerticalAlignment="Top"
+                    Appearance="Transparent"
+                    FontSize="24"
+                    Icon="{ui:SymbolIcon ChatBubblesQuestion32}"
+                    IsEnabled="{Binding OpenHelpButtonEnable}"
+                    Command="{Binding OpenHelpCommand}" />
+            </ui:TitleBar.TrailingContent>
+        </ui:TitleBar>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ui:Card Grid.Column="0"
+                     Margin="10"
+                     VerticalContentAlignment="Top"
+                     HorizontalAlignment="Stretch"
+                     VerticalAlignment="Stretch">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <ui:Button Grid.Column="0"
+                                   IsEnabled="{Binding AddProjectButtonEnable}"
+                                   Width="100"
+                                   HorizontalAlignment="Center"
+                                   Appearance="Success"
+                                   Content="Add"
+                                   Command="{Binding AddProjectCommand}"
+                                   Icon="{ui:SymbolIcon Add32}" />
+                        <ui:Button Grid.Column="1"
+                                   IsEnabled="{Binding RemoveProjectButtonEnable}"
+                                   Width="100"
+                                   Appearance="Caution"
+                                   Content="Delete"
+                                   HorizontalAlignment="Center"
+                                   Command="{Binding RemoveProjectCommand}"
+                                   Icon="{ui:SymbolIcon Delete32}" />
+                    </Grid>
+
+                    <ui:ListView
+                        Grid.Row="0"
+                        Margin="0,10"
+                        d:ItemsSource="{d:SampleData ItemCount=2}"
+                        ItemsSource="{Binding Projects}"
+                        SelectedItem="{Binding SelectedProject, Mode=TwoWay}"
+                        SelectedIndex="1"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        ScrollViewer.CanContentScroll="True"
+                        VirtualizingPanel.IsVirtualizing="True">
+
+                        <ui:ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="8,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Ellipse Grid.RowSpan="2"
+                                             Width="24" Height="24" Margin="6"
+                                             HorizontalAlignment="Center"
+                                             VerticalAlignment="Center"
+                                             Fill="LightSteelBlue" />
+                                    <TextBlock Grid.Row="0" Grid.Column="1"
+                                               Margin="12,6,0,0"
+                                               FontWeight="Bold"
+                                               Text="{Binding Name}" />
+                                    <TextBlock Grid.Row="1" Grid.Column="1"
+                                               Margin="12,0,0,6"
+                                               Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"
+                                               Text="{Binding Description}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ui:ListView.ItemTemplate>
+                    </ui:ListView>
+                </Grid>
+            </ui:Card>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="200" />
+                    <RowDefinition Height="70" />
+                </Grid.RowDefinitions>
+
+                <ui:Card Grid.Row="0"
+                         Margin="10"
+                         VerticalContentAlignment="Top"
+                         HorizontalAlignment="Stretch"
+                         VerticalAlignment="Stretch">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0"
+                                    Orientation="Horizontal">
+                            <ui:TextBlock
+                                Appearance="Secondary"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                Text="Список моделей"
+                                TextWrapping="WrapWithOverflow" />
+                            <Separator Width="20" Visibility="Hidden" />
+                            <ui:Button
+                                Content="Добавить модель"
+                                FontSize="14"
+                                IsEnabled="{Binding AddModelButtonEnable}"
+                                VerticalAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Appearance="Transparent"
+                                Icon="{ui:SymbolIcon ChannelAdd28}"
+                                Command="{Binding AddModelCommand}" />
+                            <Separator Width="10" Visibility="Hidden" />
+                            <ui:Button
+                                Content="Удалить модель"
+                                IsEnabled="{Binding RemoveModelButtonEnable}"
+                                VerticalAlignment="Center"
+                                FontSize="14"
+                                Appearance="Transparent"
+                                Icon="{ui:SymbolIcon ChannelDismiss28}"
+                                Command="{Binding DeleteModelCommand}" />
+                        </StackPanel>
+
+                        <ui:DataGrid Grid.Row="1"
+                                     Margin="0,0,10,0"
+                                     AutoGenerateColumns="False"
+                                     CanUserAddRows="False"
+                                     SelectionUnit="FullRow"
+                                     SelectionMode="Extended"
+                                     CanUserReorderColumns="False"
+                                     CanUserDeleteRows="False"
+                                     ItemsSource="{Binding SelectedProject.Models}"
+                                     attachedProperties:DataGridMultiSelect.SelectedItems="{Binding SelectedProject.SelectedModels}">
+
+                            <ui:DataGrid.Columns>
+                                <DataGridTextColumn Header="№"
+                                                    Width="30"
+                                                    Binding="{Binding Number}" />
+                                <DataGridTemplateColumn Width="60">
+                                    <DataGridTemplateColumn.Header>
+                                        <ui:Button
+                                            HorizontalAlignment="Center"
+                                            Width="50"
+                                            Appearance="Transparent"
+                                            FontSize="24"
+                                            Command="{Binding DataContext.SetAllCheckCommand, 
+                  RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                            Icon="{ui:SymbolIcon CheckmarkCircle32}" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox
+                                                IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Имя"
+                                                    Width="150"
+                                                    Binding="{Binding Name}" />
+
+                                <DataGridTextColumn Header="Раздел"
+                                                    Width="75"
+                                                    Binding="{Binding Section}" />
+
+                                <DataGridTextColumn Header="Путь"
+                                                    Width="*"
+                                                    IsReadOnly="True"
+                                                    Binding="{Binding Path}" />
+
+                                <DataGridTextColumn Header="Последняя выгрузка"
+                                                    Width="160"
+                                                    IsReadOnly="True"
+                                                    Binding="{Binding LastExportAt, 
+                                                    StringFormat={}{0:dd.MM.yyyy HH:mm}, 
+                                                    TargetNullValue=—, UpdateSourceTrigger=PropertyChanged}" />
+                            </ui:DataGrid.Columns>
+                        </ui:DataGrid>
+                    </Grid>
+                </ui:Card>
+
+                <ui:Card Grid.Row="1" Margin="10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="135" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="150" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <CheckBox Content="NWC" IsChecked="{Binding IsCheckedNwc}" />
+                            <Separator Height="5" Visibility="Hidden" />
+                            <CheckBox Content="Пересохранить" IsChecked="{Binding IsCheckedResave}" />
+                            <Separator Height="5" Visibility="Hidden" />
+                            <CheckBox Content="Отсоединенка" IsChecked="{Binding IsCheckedDetach}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <StackPanel Orientation="Horizontal">
+                                <ui:Button
+                                    Width="130"
+                                    HorizontalAlignment="Left"
+                                    HorizontalContentAlignment="Left"
+                                    Appearance="Danger"
+                                    FontSize="14"
+                                    Content="Путь к папке"
+                                    Icon="{ui:SymbolIcon FolderArrowRight28}"
+                                    Command="{Binding SelectNwcFolderCommand}" />
+                                <Separator Width="5" Visibility="Hidden" />
+                                <ui:TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Appearance="Secondary"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="{Binding SelectedProject.NwcSavePath}"
+                                    TextWrapping="WrapWithOverflow" />
+                            </StackPanel>
+                            <Separator Height="5" Visibility="Hidden" />
+                            <StackPanel Orientation="Horizontal">
+                                <ui:Button
+                                    Width="130"
+                                    HorizontalAlignment="Left"
+                                    HorizontalContentAlignment="Left"
+                                    Appearance="Caution"
+                                    FontSize="14"
+                                    Content="Путь к папке"
+                                    Icon="{ui:SymbolIcon FolderArrowRight28}"
+                                    Command="{Binding SelectResaveFolderCommand}" />
+                                <Separator Width="5" Visibility="Hidden" />
+                                <ui:TextBlock
+                                    Appearance="Secondary"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="{Binding SelectedProject.ResaveSavePath}"
+                                    TextWrapping="WrapWithOverflow" />
+                            </StackPanel>
+                            <Separator Height="5" Visibility="Hidden" />
+                            <StackPanel Orientation="Horizontal">
+                                <ui:Button
+                                    Width="130"
+                                    HorizontalAlignment="Left"
+                                    HorizontalContentAlignment="Left"
+                                    Appearance="Info"
+                                    FontSize="14"
+                                    Content="Путь к папке"
+                                    Icon="{ui:SymbolIcon FolderArrowRight28}"
+                                    Command="{Binding SelectDetachFolderCommand}" />
+                                <Separator Width="5" Visibility="Hidden" />
+                                <ui:TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Appearance="Secondary"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="{Binding SelectedProject.DetachSavePath}"
+                                    TextWrapping="WrapWithOverflow" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2">
+                            <ui:TextBlock
+                                Text="Рабочий набор"
+                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                TextWrapping="WrapWithOverflow"
+                                FontTypography="BodyStrong" />
+                            <ui:TextBlock
+                                Appearance="Secondary"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                FontSize="12"
+                                Text="содержащий текст, не грузится при открытии моделей"
+                                TextWrapping="WrapWithOverflow" />
+                            <Separator Visibility="Hidden" Height="5" />
+
+                            <ui:TextBox
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{Binding SelectedProject.WorksetName, Mode=TwoWay, 
+                                UpdateSourceTrigger=PropertyChanged}"
+                                PlaceholderText="введите значение...."
+                                TextWrapping="WrapWithOverflow" />
+                        </StackPanel>
+                    </Grid>
+                </ui:Card>
+                <ProgressBar Grid.Row="2" Height="10"
+                             VerticalAlignment="Top"
+                             Minimum="0"
+                             Maximum="{Binding ProgressMaximum}"
+                             Value="{Binding ProgressValue}"
+                             IsIndeterminate="{Binding ProgressIsIndeterminate}" />
+
+                <ui:Button Grid.Row="2"
+                           Appearance="Primary"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           Content="Execute"
+                           Icon="{ui:SymbolIcon ArrowShuffle32}"
+                           Command="{Binding ExecuteCommand}" />
+                <ui:Button Grid.Row="2"
+                           Margin="0,0,5,0"
+                           Appearance="Transparent"
+                           IsEnabled="{Binding SettingsButtonEnable}"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"
+                           FontSize="32"
+                           Icon="{ui:SymbolIcon SettingsChat20}"
+                           Command="{Binding SettingsCommand}" />
+
+            </Grid>
+        </Grid>
+    </Grid>
+</ui:FluentWindow>

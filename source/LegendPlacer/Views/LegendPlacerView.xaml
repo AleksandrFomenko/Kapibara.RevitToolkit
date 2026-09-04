@@ -1,0 +1,228 @@
+﻿<ui:FluentWindow
+     x:Class="LegendPlacer.Views.LegendPlacerView"
+     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+     xmlns:ui="http://Kapibara/xaml"
+     xmlns:models="clr-namespace:LegendPlacer.Models"
+     mc:Ignorable="d"
+     WindowStartupLocation="CenterScreen"
+     Height="650"
+     Width="1300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        
+        <ui:TitleBar Grid.Row="0" Title="Legend placer on view"/>
+        
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ui:Flyout
+                Grid.Row="0"
+                IsOpen="{Binding IsFlyoutOpen, Mode=TwoWay}"
+                Placement="Mouse">
+                <StackPanel>
+                    <TextBlock
+                        Width="280"
+                        Text="Плагин размещает легенды на виде по координатам. Задайте угол отчета и смещение от угла"
+                        TextWrapping="WrapWithOverflow" />
+                </StackPanel>
+            </ui:Flyout>
+            <Button
+                HorizontalAlignment="Center"
+                Grid.Row="1"
+                Command="{Binding ShowFlyoutCommand, Mode=OneWay}"
+                CommandParameter="{Binding RelativeSource={RelativeSource Self}, Mode=OneWay}"
+                Content="Размещение легенд на видах" />
+        </Grid>
+        
+        <Grid Grid.Row="2" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ui:Card  
+                Grid.Column="0"  
+                VerticalAlignment="Top"  
+                Margin="20,10,10,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <StackPanel Grid.Row="0">
+                        <ui:TextBlock
+                            Text="Выберите легенду"
+                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                            TextWrapping="WrapWithOverflow"
+                            FontTypography="BodyStrong" />
+                        <ui:TextBlock
+                            Appearance="Secondary"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="Данная легенда будет автоматически размещена на выбранных листах документа"
+                            TextWrapping="WrapWithOverflow" />
+
+                        <Separator Visibility="Hidden" Height="20" />
+
+                        <ui:CardControl VerticalAlignment="Top" Icon="{ui:SymbolIcon FilterSync24}">
+                            <ui:CardControl.Header>
+                                <ui:TextBlock
+                                    FontTypography="BodyStrong"
+                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                    Text="Фильтр" />
+                            </ui:CardControl.Header>
+                            <ui:TextBox
+                                PlaceholderText="Введите наименование легенды..."
+                                Text="{Binding FilterLegend, UpdateSourceTrigger=PropertyChanged}" />
+                        </ui:CardControl>
+
+                        <Separator Visibility="Hidden" Height="20" />
+                    </StackPanel>
+                    
+                    <ListBox
+                        Grid.Row="1"
+                        ItemsSource="{Binding Legends}"
+                        SelectedItem="{Binding Legend, Mode=TwoWay}"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
+                </Grid>
+            </ui:Card>
+
+            <ui:Card Grid.Column="1" VerticalAlignment="Top" Margin="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0">
+                        <ui:TextBlock
+                            Text="Выберите листы"
+                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                            TextWrapping="WrapWithOverflow"
+                            FontTypography="BodyStrong" />
+                        <ui:TextBlock
+                            Appearance="Secondary"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="Выбранная легенда будет размещена на указанных листах"
+                            TextWrapping="WrapWithOverflow" />
+                        <Separator Visibility="Hidden" Height="20" />
+                    </StackPanel>
+
+                    <TreeView
+                        Grid.Row="1"
+                        ItemsSource="{Binding TreeItems}"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        ScrollViewer.CanContentScroll="True">
+
+                        <TreeView.Resources>
+                            <HierarchicalDataTemplate
+                                DataType="{x:Type models:FolderItem}"
+                                ItemsSource="{Binding AllChildren}">
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox
+                                        IsChecked="{Binding IsChecked, Mode=TwoWay}"
+                                        VerticalAlignment="Center"/>
+                                    <TextBlock
+                                        Text="{Binding Name}"
+                                        VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </HierarchicalDataTemplate>
+
+                            <DataTemplate DataType="{x:Type models:SheetItem}">
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox
+                                        IsChecked="{Binding IsChecked, Mode=TwoWay}"
+                                        VerticalAlignment="Center"/>
+                                    <TextBlock
+                                        Text="{Binding Name}"
+                                        VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </TreeView.Resources>
+                    </TreeView>
+                </Grid>
+            </ui:Card>
+            
+            <ui:Card 
+                Grid.Column="2"
+                VerticalAlignment="Top"
+                Margin = "10,10,20,0">
+                <StackPanel>
+                    <ui:TextBlock
+                        Text="Выберите угол"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        TextWrapping="WrapWithOverflow"
+                        FontTypography="BodyStrong" />
+                    <ui:TextBlock
+                        Appearance="Secondary"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="относительно данного угла идет отчет координат"
+                        TextWrapping="WrapWithOverflow" />
+                    <ComboBox
+                        ItemsSource="{Binding Corners}"
+                        SelectedItem="{Binding Corner}" />
+                    
+                    <Separator Visibility="Hidden" Height="10" />
+                    <ui:TextBlock
+                        HorizontalAlignment="Center"
+                        Text="Настройте координаты"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        TextWrapping="WrapWithOverflow"
+                        FontTypography="BodyStrong" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel 
+                            Grid.Column="0"
+                            Margin="10">
+                            <ui:TextBlock
+                                Text="По оси абсцисс"
+                                HorizontalAlignment="Center"
+                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                TextWrapping="WrapWithOverflow"
+                                FontTypography="BodyStrong" />
+                            <Separator Visibility="Hidden" Height="10" />
+                            <ui:TextBox PlaceholderText="По оси Х"
+                                Text="{Binding ChangeX}"
+                                PreviewTextInput="NumberValidationTextBox" />
+                        </StackPanel>
+                        <StackPanel 
+                            Grid.Column="1"
+                            Margin="10">
+                            <ui:TextBlock
+                                Text="По оси ординат"
+                                HorizontalAlignment="Center"
+                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                TextWrapping="WrapWithOverflow"
+                                FontTypography="BodyStrong" />
+                            <Separator Visibility="Hidden" Height="10" />
+                            <ui:TextBox PlaceholderText="По оси Y"
+                                        Text="{Binding ChangeY}"
+                                        PreviewTextInput="NumberValidationTextBox" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </ui:Card>
+        </Grid>
+        <ui:Button Grid.Row="3"
+            Appearance="Primary"
+            Content="Execute"
+            HorizontalAlignment="Center"
+            Margin="0,10"
+            VerticalAlignment="Bottom"
+            Command="{Binding ExecuteCommand}" />
+    </Grid>
+</ui:FluentWindow>

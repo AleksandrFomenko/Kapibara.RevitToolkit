@@ -1,0 +1,127 @@
+﻿<ui:FluentWindow
+    x:Class="ExporterModels.Dialogs.AddModel.View.AddModelView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ui="http://Kapibara/xaml"
+    xmlns:models="clr-namespace:ExporterModels.Dialogs.AddModel.Entities"
+    mc:Ignorable="d"
+    WindowStartupLocation="CenterOwner"
+    Width="500"
+    Height="800">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="75" />
+            <RowDefinition Height="75" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <ui:TitleBar
+            Grid.Row="0"
+            Title="Add model"
+            Icon="{ui:SymbolIcon ArrowExportLtr24}" />
+
+        <ui:Card
+            Grid.Row="1"
+            Margin="5">
+            <ComboBox
+                Margin="5"
+                ItemsSource="{Binding Options}"
+                SelectedItem="{Binding SelectedOption}"
+                DisplayMemberPath="Name" />
+        </ui:Card>
+
+
+        <ui:Card
+            Grid.Row="2"
+            Margin="20"
+            Visibility="{Binding VisibilitySelectModelFromFolder, 
+            Converter={StaticResource BoolToVis}}">
+
+            <StackPanel>
+                <ui:Button
+                    MinWidth="100"
+                    Margin="10"
+                    Icon="{ui:SymbolIcon ArrowCounterclockwise32}"
+                    HorizontalAlignment="Center"
+                    Appearance="Primary"
+                    Content="Выбрать модель"
+                    Command="{Binding SelectModelFromFolderCommand}" />
+                <Separator Height="20" Visibility="Hidden" />
+                <ui:TextBox
+                    Text="{Binding PathFromFolder, Mode=TwoWay}" />
+            </StackPanel>
+
+        </ui:Card>
+
+
+        <TreeView Grid.Row="2"
+                  Visibility="{Binding VisibilitySelectModelRevitServer,
+                  Converter={StaticResource BoolToVis}}"
+                  ItemsSource="{Binding TreeItems}"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.CanContentScroll="True">
+
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type models:ServerItem}"
+                                          ItemsSource="{Binding AllChildren}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🖥️" Margin="0,0,6,0" VerticalAlignment="Center" />
+                        <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  Focusable="False" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding Name}" Margin="6,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+
+                <HierarchicalDataTemplate DataType="{x:Type models:FolderItem}"
+                                          ItemsSource="{Binding AllChildren}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="📁" Margin="0,0,6,0" VerticalAlignment="Center" />
+                        <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  IsThreeState="False" Focusable="False" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding Name}" Margin="6,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+
+
+                <DataTemplate DataType="{x:Type models:SheetItem}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="📄" Margin="0,0,6,0" VerticalAlignment="Center" />
+                        <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  Focusable="False" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding Name}" Margin="6,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </DataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+
+        <ui:ProgressRing
+            Grid.Row="3"
+            Visibility="{Binding IsBusy, Converter={StaticResource BoolToVis}}"
+            IsIndeterminate="True" />
+
+        <ui:InfoBar Grid.Row="4"
+                    Margin="15,10"
+                    Title="{Binding InfoBarService.Title}"
+                    IsOpen="{Binding InfoBarService.IsOpen}"
+                    Message="{Binding InfoBarService.Message}"
+                    Severity="{Binding InfoBarService.Severity, Mode=OneWay}" />
+
+
+        <ui:Button Grid.Row="5"
+                   MinWidth="100"
+                   Margin="10"
+                   Icon="{ui:SymbolIcon ArrowCounterclockwise32}"
+                   HorizontalAlignment="Center"
+                   Appearance="Primary"
+                   Content="Добавить"
+                   Command="{Binding AddModelCommand}" />
+
+    </Grid>
+</ui:FluentWindow>

@@ -1,0 +1,52 @@
+﻿<ui:FluentWindow
+    x:Class="ExporterModels.Dialogs.Instruction.View.InstructionView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ui="http://Kapibara/xaml"
+    mc:Ignorable="d"
+    WindowStartupLocation="CenterOwner"
+    Height="450"
+    Width="800">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+
+        <ui:TitleBar
+            Grid.Row="0"
+            ShowClose="False"
+            ShowMaximize="False"
+            ShowMinimize="False"
+            Title="Insruction"
+            FontSize="14"
+            Icon="{ui:SymbolIcon Question24}" />
+
+        <ui:TextBlock Grid.Row="1"
+                      Appearance="Secondary"
+                      Margin="10"
+                      Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                      Text="{Binding Text}"
+                      TextWrapping="WrapWithOverflow" />
+
+        <CheckBox
+            Grid.Row="2"
+            HorizontalAlignment="Center"
+            IsChecked="{Binding IsRead}"
+            Content="{Binding ConditionText}" />
+
+        <ui:Button
+            Grid.Row="3"
+            Appearance="Primary"
+            HorizontalAlignment="Center"
+            Content="{Binding CloseButtonContent}"
+            Command="{Binding CloseCommand}" />
+
+
+    </Grid>
+</ui:FluentWindow>

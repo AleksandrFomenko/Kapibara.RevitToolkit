@@ -1,0 +1,397 @@
+﻿<ui:FluentWindow x:Class="EngineeringSystems.Views.GroupSystemsView"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:ui="http://Kapibara/xaml"
+                 xmlns:dd="urn:gong-wpf-dragdrop"
+                 xmlns:converters="clr-namespace:EngineeringSystems.Views.Converters"
+                 mc:Ignorable="d"
+                 WindowStartupLocation="CenterScreen"
+                 Height="800" Width="1200">
+    <ui:FluentWindow.Resources>
+        <converters:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+    </ui:FluentWindow.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <ui:TitleBar
+            Grid.Row="0"
+            Title="Group Systems" />
+
+        <Grid Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.7*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <DockPanel Grid.Column="0">
+                    <!-- это кард с редактированием -->
+                    <ui:CardExpander
+                        DockPanel.Dock="Top"
+                        Margin="10, 5"
+                        CornerRadius="5"
+                        Icon="{ui:SymbolIcon NotePadEdit20}">
+
+                        <ui:CardExpander.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <ui:TextBlock
+                                    FontSize="14"
+                                    VerticalAlignment="Center"
+                                    FontTypography="BodyStrong"
+                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                    Text="Редактирование"
+                                    TextWrapping="WrapWithOverflow" />
+                            </StackPanel>
+                        </ui:CardExpander.Header>
+                        <!--- тут кнопочки -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <ui:Button Grid.Column="0"
+                                       HorizontalAlignment="Center"
+                                       Appearance="Primary"
+                                       FontSize="16"
+                                       Icon="{ui:SymbolIcon AddCircle20}"
+                                       ToolTip="Добавить группу"
+                                       Content="Добавить"
+                                       Command="{Binding AddGroupCommand}" />
+                            <ui:Button Grid.Column="1"
+                                       HorizontalAlignment="Center"
+                                       Appearance="Info"
+                                       FontSize="16"
+                                       Icon="{ui:SymbolIcon TextEditStyle20}"
+                                       ToolTip="Переименовать выбранную группу"
+                                       Content="Переименовать"
+                                       Command="{Binding RenameGroupCommand}" />
+                            <ui:Button Grid.Column="2"
+                                       HorizontalAlignment="Center"
+                                       Appearance="Caution"
+                                       FontSize="16"
+                                       Icon="{ui:SymbolIcon GroupDismiss20}"
+                                       ToolTip="Удалить выбранную группу"
+                                       Content="Удалить"
+                                       Command="{Binding DeleteGroupCommand}" />
+
+                        </Grid>
+                    </ui:CardExpander>
+
+                    <!-- это кард с настройками, выбор параметра, свич баттон -->
+                    <ui:CardExpander
+                        DockPanel.Dock="Top"
+                        Margin="10, 5"
+                        CornerRadius="5"
+                        Icon="{ui:SymbolIcon Settings20}">
+
+                        <ui:CardExpander.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <ui:TextBlock
+                                    FontSize="14"
+                                    VerticalAlignment="Center"
+                                    FontTypography="BodyStrong"
+                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                    Text="Настройки"
+                                    TextWrapping="WrapWithOverflow" />
+                            </StackPanel>
+                        </ui:CardExpander.Header>
+                        <DockPanel>
+                            <ui:TextBlock DockPanel.Dock="Top"
+                                          FontSize="12"
+                                          VerticalAlignment="Center"
+                                          FontTypography="BodyStrong"
+                                          Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                          Text="Выбор параметра"
+                                          TextWrapping="WrapWithOverflow" />
+                            <ComboBox DockPanel.Dock="Top"
+                                      ItemsSource="{Binding UserParameters}"
+                                      SelectedItem="{Binding SelectedUserParameter}" />
+                            <ui:TextBlock DockPanel.Dock="Top"
+                                          FontSize="12"
+                                          VerticalAlignment="Center"
+                                          FontTypography="BodyStrong"
+                                          Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                          Text="Создать виды и 3D фильтры"
+                                          TextWrapping="WrapWithOverflow" />
+                            <ui:ToggleSwitch
+                                IsChecked="{Binding CreateView, Mode=TwoWay}" />
+                        </DockPanel>
+                    </ui:CardExpander>
+
+                    <!-- это кард с поискком -->
+                    <ui:CardExpander
+                        DockPanel.Dock="Top"
+                        Margin="10, 5"
+                        CornerRadius="5"
+                        Icon="{ui:SymbolIcon Search20}">
+
+                        <ui:CardExpander.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <ui:TextBlock
+                                    FontSize="14"
+                                    VerticalAlignment="Center"
+                                    FontTypography="BodyStrong"
+                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                    Text="Поиск"
+                                    TextWrapping="WrapWithOverflow" />
+                            </StackPanel>
+                        </ui:CardExpander.Header>
+                        <ui:TextBox
+                            Margin="0,4,0,0"
+                            HorizontalAlignment="Left"
+                            PlaceholderText="Введите наименование группы..."
+                            Text="{Binding FilterGroupSystems, UpdateSourceTrigger=PropertyChanged}" />
+                    </ui:CardExpander>
+
+                    <!--кнопки с чекбоксами -->
+                    <Grid DockPanel.Dock="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <ui:Button
+                            Content="Выбрать все"
+                            Appearance="Primary"
+                            HorizontalAlignment="Center"
+                            Icon="{ui:SymbolIcon CheckboxCheckedSync20}"
+                            Command="{Binding CheckAllCommand}" />
+                        <ui:Button Grid.Column="1"
+                                   Content="Отменить выбор"
+                                   Appearance="Primary"
+                                   HorizontalAlignment="Center"
+                                   Icon="{ui:SymbolIcon CheckboxIndeterminate20}"
+                                   Command="{Binding UnCheckAllCommand}" />
+                    </Grid>
+
+                    <!-- все группы -->
+                    <ui:Card DockPanel.Dock="Top"
+                             Margin="10, 5"
+                             VerticalAlignment="Top"
+                             VerticalContentAlignment="Top">
+                        <ui:ListView
+                            ItemsSource="{Binding SystemGroups}"
+                            SelectedItem="{Binding SelectedSystemGroups}">
+
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <!-- кард группы -->
+                                    <ui:CardExpander
+                                        Icon="{ui:SymbolIcon Group24}"
+                                        IsExpanded="{Binding IsExpanded, Mode=TwoWay}">
+
+                                        <ui:CardExpander.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <CheckBox IsChecked="{Binding IsChecked}" />
+                                                <ui:TextBlock
+                                                    FontSize="14"
+                                                    VerticalAlignment="Center"
+                                                    FontTypography="BodyStrong"
+                                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                                    Text="{Binding Name}"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </StackPanel>
+                                        </ui:CardExpander.Header>
+
+                                        <ui:ListView
+                                            ItemsSource="{Binding Systems}"
+                                            SelectedItem="{Binding SelectedSystem}"
+                                            dd:DragDrop.IsDragSource="True"
+                                            dd:DragDrop.IsDropTarget="True"
+                                            dd:DragDrop.UseDefaultDragAdorner="True"
+                                            dd:DragDrop.DropTargetAdornerBrush="{DynamicResource InfoBadgeAttentionSeverityBackgroundBrush}"
+                                            MinHeight="50"
+                                            Padding="0,0,0,40">
+                                            <ui:ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="*" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBlock
+                                                            Grid.Column="0"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Text="{Binding NameSystem}" />
+
+                                                        <TextBlock
+                                                            Grid.Column="1"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Text="{Binding CutSystemName}" />
+
+                                                        <TextBlock
+                                                            Grid.Column="2"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Text="{Binding SystemId}" />
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ui:ListView.ItemTemplate>
+                                        </ui:ListView>
+                                    </ui:CardExpander>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ui:ListView>
+                    </ui:Card>
+                </DockPanel>
+
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="75" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <ui:CardControl
+                        Grid.Row="0"
+                        VerticalAlignment="Top"
+                        Margin="10, 5,10,10"
+                        Padding="20,10,20,10"
+                        Icon="{ui:SymbolIcon FilterSync24}">
+                        <ui:CardControl.Header>
+                            <StackPanel>
+                                <ui:TextBlock
+                                    FontTypography="BodyStrong"
+                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                    Text="Фильтр"
+                                    TextWrapping="WrapWithOverflow" />
+                                <ui:TextBlock
+                                    Appearance="Secondary"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="Фильтр по наименованию"
+                                    TextWrapping="WrapWithOverflow" />
+                            </StackPanel>
+                        </ui:CardControl.Header>
+                        <ui:TextBox
+                            HorizontalAlignment="Left"
+                            PlaceholderText="Введите наименование инженерной системы..."
+                            Text="{Binding FilterSystems, UpdateSourceTrigger=PropertyChanged}" />
+                    </ui:CardControl>
+
+                    <ui:Card Grid.Row="1" Margin="10, 0" VerticalAlignment="Top" VerticalContentAlignment="Top">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Margin="13,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.5*" />
+                                    <ColumnDefinition Width="1.5*" />
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>
+                                <ui:TextBlock Grid.Column="0"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Appearance="Secondary"
+                                              Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                              Text="Имя системы"
+                                              TextWrapping="WrapWithOverflow" />
+
+                                <ui:TextBlock Grid.Column="1"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Appearance="Secondary"
+                                              Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                              Text="Сокращение системы"
+                                              TextWrapping="WrapWithOverflow" />
+
+                                <ui:TextBlock Grid.Column="2"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Appearance="Secondary"
+                                              Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                              Text="ID системы"
+                                              TextWrapping="WrapWithOverflow" />
+                            </Grid>
+
+                            <ListBox
+                                Grid.Row="1"
+                                ItemsSource="{Binding EngineeringSystems}"
+                                SelectedItem="{Binding EngineeringSystem}"
+                                MinHeight="100"
+                                dd:DragDrop.IsDragSource="True"
+                                dd:DragDrop.IsDropTarget="True"
+                                dd:DragDrop.UseDefaultDragAdorner="True"
+                                dd:DragDrop.DropTargetAdornerBrush="{DynamicResource InfoBadgeAttentionSeverityBackgroundBrush}">
+
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="2.5*" />
+                                                <ColumnDefinition Width="1.5*" />
+                                                <ColumnDefinition Width="100" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock
+                                                Grid.Column="0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Text="{Binding NameSystem}" />
+
+                                            <TextBlock
+                                                Grid.Column="1"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Text="{Binding CutSystemName}" />
+
+                                            <TextBlock
+                                                Grid.Column="2"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Text="{Binding SystemId}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </ui:Card>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <ComboBox Grid.Column="0" Width="Auto" Margin="10,0"
+                      ItemsSource="{Binding GroupSystemsOptions}"
+                      SelectedItem="{Binding SelectedOption}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <ui:Button
+                Grid.Column="1"
+                Appearance="Primary"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Content="Запустить"
+                Icon="{ui:SymbolIcon GroupReturn24}"
+                Command="{Binding ExecuteCommand}" />
+            <ui:Button
+                Grid.Column="2"
+                Appearance="Primary"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Content="Запустить и закрыть"
+                Icon="{ui:SymbolIcon GroupReturn24}"
+                Command="{Binding ExecuteAndCloseCommand}" />
+        </Grid>
+    </Grid>
+</ui:FluentWindow>

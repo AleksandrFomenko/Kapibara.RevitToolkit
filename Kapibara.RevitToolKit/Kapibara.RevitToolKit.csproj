@@ -1,0 +1,58 @@
+<Project Sdk="Nice3point.Revit.Sdk/6.2.2">
+
+    <PropertyGroup>
+        <UseWPF>true</UseWPF>
+        <DeployAddin>true</DeployAddin>
+        <LaunchRevit>true</LaunchRevit>
+        <IsRepackable>false</IsRepackable>
+        <EnableDynamicLoading>true</EnableDynamicLoading>
+        <Configurations>Debug.R22;Debug.R23;Debug.R24;Debug.R25;Debug.R26;Debug.R27</Configurations>
+        <Configurations>$(Configurations);Release.R22;Release.R23;Release.R24;Release.R25;Release.R26</Configurations>
+        <Configurations>$(Configurations);Release.R27</Configurations>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- Revit Dependencies -->
+        <PackageReference Include="Nice3point.Revit.Toolkit" Version="$(RevitVersion).*"/>
+        <PackageReference Include="Nice3point.Revit.Extensions" Version="$(RevitVersion).*"/>
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*"/>
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*"/>
+        
+        <!-- Revit UI Dependencies -->
+        <PackageReference Include="Nice3point.Revit.Api.UIFramework" Version="$(RevitVersion).*"/>
+        <PackageReference Include="Nice3point.Revit.Api.UIFrameworkServices" Version="$(RevitVersion).*"/>
+        <PackageReference Include="Nice3point.Revit.Api.AdWindows" Version="$(RevitVersion).*" />
+
+        <!-- Development Dependencies -->
+        <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" PrivateAssets="all"/>
+        <PackageReference Include="Polyfill" Version="10.5.1" PrivateAssets="all"/>
+        <PackageReference Include="ILRepack" Version="2.0.41"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Resource Include="Resources\Icons\**\*.png"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\source\ActiveView\ActiveView.csproj" />
+      <ProjectReference Include="..\source\AxesLevels\AxesLevels.csproj" />
+      <ProjectReference Include="..\source\Axes\Axes.csproj" />
+      <ProjectReference Include="..\source\ClashHub\ClashHub.csproj" />
+      <ProjectReference Include="..\source\EngineeringSystems\EngineeringSystems.csproj" />
+      <ProjectReference Include="..\source\ExporterModels\ExporterModels.csproj" />
+      <ProjectReference Include="..\source\ImportExcelByParameter\ImportExcelByParameter.csproj" />
+      <ProjectReference Include="..\source\Kapibara.RevitToolKit.Core\Kapibara.RevitToolKit.Core.csproj" />
+      <ProjectReference Include="..\source\LegendPlacer\LegendPlacer.csproj" />
+      <ProjectReference Include="..\source\LevelByFloor\LevelByFloor.csproj" />
+      <ProjectReference Include="..\source\Marking\Marking.csproj" />
+      <ProjectReference Include="..\source\RiserMate\RiserMate.csproj" />
+      <ProjectReference Include="..\source\Settings\Settings.csproj" />
+      <ProjectReference Include="..\source\SheetManager\SheetManager.csproj" />
+      <ProjectReference Include="..\source\SolidIntersection\SolidIntersection.csproj" />
+      <ProjectReference Include="..\source\SortingCategories\SortingCategories.csproj" />
+      <ProjectReference Include="..\source\VentilationInstallations\VentilationInstallations.csproj" />
+      <ProjectReference Include="..\source\ViewByParameter\ViewByParameter.csproj" />
+      <ProjectReference Include="..\source\WorkSetLinkFiles\WorkSetLinkFiles.csproj" />
+    </ItemGroup>
+
+</Project>

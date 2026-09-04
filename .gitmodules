@@ -1,0 +1,3 @@
+[submodule "libs/WPF.UI"]
+	path = libs/WPF.UI
+	url = https://github.com/AleksandrFomenko/WPF.UI

@@ -1,0 +1,23 @@
+﻿<Project Sdk="Nice3point.Revit.Sdk/6.2.2">
+
+    <PropertyGroup>
+        <UseWPF>true</UseWPF>
+        <Platforms>AnyCPU</Platforms>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Nice3point.Revit.Toolkit"/>
+        <PackageReference Include="Nice3point.Revit.Extensions"/>
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPI"/>
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection"/>
+        <PackageReference Include="CommunityToolkit.Mvvm"/>
+        <PackageReference Include="ClosedXML"/>
+        <PackageReference Include="FluentIcons.Wpf"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Kapibara.RevitToolKit.Core\Kapibara.RevitToolKit.Core.csproj"/>
+    </ItemGroup>
+
+</Project>

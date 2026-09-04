@@ -1,0 +1,20 @@
+﻿<Project>
+
+    <!-- Global NuGet configuration -->
+    <PropertyGroup>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+        <CentralPackageFloatingVersionsEnabled>true</CentralPackageFloatingVersionsEnabled>
+        <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- Automation Tools -->
+        <PackageVersion Include="Nuke.Common" Version="9.0.4"/>
+    </ItemGroup>
+
+    <!-- Development References -->
+    <ItemGroup>
+        <GlobalPackageReference Include="PolySharp" Version="1.15.0"/>
+    </ItemGroup>
+
+</Project>

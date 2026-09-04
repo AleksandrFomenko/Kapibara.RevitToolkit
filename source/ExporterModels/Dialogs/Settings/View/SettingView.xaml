@@ -1,0 +1,112 @@
+﻿<ui:FluentWindow
+    x:Class="ExporterModels.Dialogs.Settings.View.SettingView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ui="http://Kapibara/xaml"
+    mc:Ignorable="d"
+    WindowStartupLocation="CenterOwner"
+    ResizeMode="NoResize"
+    Height="140"
+    MinHeight="140"
+    MinWidth="475"
+    Width="475">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ui:TitleBar
+            Grid.Row="0"
+            Title="Settings"
+            ShowMinimize="False"
+            ShowMaximize="False"
+            Icon="{ui:SymbolIcon SettingsChat20}" />
+
+        <ui:TextBlock
+            Grid.Row="1"
+            Margin="20,0"
+            Appearance="Primary"
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+            FontSize="14"
+            Text="Настройка конфигурации"
+            TextWrapping="WrapWithOverflow" />
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="20, 0">
+            <ComboBox
+                MinWidth="150"
+                MaxWidth="150"
+                ItemsSource="{Binding Configurations}"
+                SelectedItem="{Binding SelectedConfiguration, Mode=TwoWay}"
+                DisplayMemberPath="Name" />
+            <Separator Height="50" Visibility="Hidden" />
+            <ui:Button
+                Appearance="Transparent"
+                FontSize="22"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Icon="{ui:SymbolIcon AddSquare24}"
+                ToolTipService.ToolTip="Добавить новую конфигурацию"
+                IsEnabled="{Binding IsEnableButtons}"
+                Command="{Binding AddConfigCommand}" />
+            <Separator Height="50" Visibility="Hidden" />
+            <ui:Button
+                FontSize="22"
+                Appearance="Transparent"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                ToolTipService.ToolTip="Переименовать текущую конфигурацию"
+                Icon="{ui:SymbolIcon Rename24}"
+                IsEnabled="{Binding IsEnableButtons}"
+                Command="{Binding RenameConfigCommand}" />
+            <Separator Height="50" Visibility="Hidden" />
+            <ui:Button
+                FontSize="22"
+                Appearance="Transparent"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                IsEnabled="{Binding IsEnableButtons}"
+                ToolTipService.ToolTip="Копировать текущую конфигурацию"
+                Icon="{ui:SymbolIcon Copy24}"
+                Command="{Binding CopyConfigCommand}" />
+
+            <Separator Height="50" Visibility="Hidden" />
+
+            <ui:Button
+                FontSize="22"
+                Appearance="Transparent"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                ToolTipService.ToolTip="Экспортировать конфигурацию"
+                IsEnabled="{Binding IsEnableButtons}"
+                Icon="{ui:SymbolIcon ArrowExportRtl24}"
+                Command="{Binding ExportConfigCommand}" />
+
+            <Separator Height="50" Visibility="Hidden" />
+
+            <ui:Button
+                FontSize="22"
+                Appearance="Transparent"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                ToolTipService.ToolTip="Импортировать конфигурацию"
+                Icon="{ui:SymbolIcon ArrowImport24}"
+                IsEnabled="{Binding IsEnableButtons}"
+                Command="{Binding ImportConfigCommand}" />
+            <Separator Height="50" Visibility="Hidden" />
+
+            <ui:Button
+                Appearance="Transparent"
+                FontSize="22"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                ToolTipService.ToolTip="Удалить текущую конфигурацию"
+                Icon="{ui:SymbolIcon Delete24}"
+                IsEnabled="{Binding IsEnableDeleteButtons}"
+                Command="{Binding DeleteConfigCommand}" />
+        </StackPanel>
+    </Grid>
+</ui:FluentWindow>

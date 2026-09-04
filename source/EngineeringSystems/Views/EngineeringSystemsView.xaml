@@ -1,0 +1,260 @@
+﻿<ui:FluentWindow
+    x:Class="EngineeringSystems.Views.EngineeringSystemsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ui="http://Kapibara/xaml"
+    xmlns:dd="urn:gong-wpf-dragdrop"
+    mc:Ignorable="d"
+    WindowStartupLocation="CenterScreen"
+    Height="{Binding WindowHeight, Mode=TwoWay}"
+    Width="{Binding WindowWidth,Mode=TwoWay}">
+    
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <ui:TitleBar Grid.Row="0" Title="Engineering systems"/>
+        
+        <ui:Button Grid.Row="2"
+            DockPanel.Dock="Bottom"
+            Appearance="Primary"
+            Content="Execute"
+            HorizontalAlignment="Center"
+            Margin="0,10"
+            VerticalAlignment="Bottom"
+            Command="{Binding StartCommand}"/>
+        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{Binding FirstColumnWidth}"/>
+                <ColumnDefinition Width="{Binding SecondColumnWidth}"/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid Grid.Column="0">
+                <ScrollViewer>
+                    <StackPanel>
+                        <ui:Card Margin="5">
+                            <StackPanel>
+                                <ui:TextBlock
+                                    Text="Системный параметр"
+                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                    TextWrapping="WrapWithOverflow"
+                                    FontTypography="BodyStrong"/>
+                                <ui:TextBlock
+                                    Appearance="Secondary"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="Выберите управляющий параметр"
+                                    TextWrapping="WrapWithOverflow" />
+                                <Separator Visibility="Hidden" Height="5"/>
+                                <ComboBox
+                                    ItemsSource="{Binding SystemParameters}"
+                                    SelectedItem="{Binding SystemParameter,Mode=TwoWay}"
+                                    DisplayMemberPath="Name"/>
+                            </StackPanel>
+                        </ui:Card>
+                        
+                        <ui:Card Margin="5">
+                            <StackPanel>
+                                <ui:TextBlock
+                                    Text="Пользовательский параметр"
+                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                    TextWrapping="WrapWithOverflow"
+                                    FontTypography="BodyStrong"/>
+                                <ui:TextBlock
+                                    Appearance="Secondary"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="Выберите целевой параметр"
+                                    TextWrapping="WrapWithOverflow" />
+                                <Separator Visibility="Hidden" Height="5"/>
+                                <ComboBox
+                                    ItemsSource="{Binding UserParameters}"
+                                    SelectedItem="{Binding UserParameter,Mode=TwoWay}" />
+                            </StackPanel>
+                        </ui:Card>
+                        
+                        <ui:Card Margin="5">
+                            <StackPanel>
+                                <ui:TextBlock
+                                    Text="Опции"
+                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                    TextWrapping="WrapWithOverflow"
+                                    FontTypography="BodyStrong"/>
+                                <ui:TextBlock
+                                    Appearance="Secondary"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="Способ выбора элементов для записи значений"
+                                    TextWrapping="WrapWithOverflow" />
+                                <Separator Visibility="Hidden" Height="5"/>
+                                <ComboBox
+                                    ItemsSource="{Binding Options}"
+                                    SelectedItem="{Binding Option,Mode=TwoWay}" 
+                                    DisplayMemberPath="NameOpt"/>
+                            </StackPanel>
+                        </ui:Card>
+                        
+                        <ui:Card Margin="5">
+                            <StackPanel>
+                                <ui:TextBlock
+                                    Text="Создать фильтры и 3D виды"
+                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                    TextWrapping="WrapWithOverflow"
+                                    FontTypography="BodyStrong"/>
+                                <ui:TextBlock
+                                    Appearance="Secondary"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="Создает виды по указанным системам"
+                                    TextWrapping="WrapWithOverflow" />
+                                <Separator Visibility="Hidden" Height="5"/>
+                                <ui:ToggleSwitch 
+                                    IsEnabled="{Binding ToggleButtonEnabled}"
+                                    Visibility="{Binding ToggleButtonVisibility}"
+                                    IsChecked="{Binding CreateView, Mode=TwoWay}" />
+                            </StackPanel>
+                        </ui:Card>
+                        
+                        <ui:Card Margin="5">
+                            <StackPanel>
+                                <ui:TextBlock
+                                    Text="Настройка фильтра"
+                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                    TextWrapping="WrapWithOverflow"
+                                    FontTypography="BodyStrong"/>
+                                <ui:TextBlock
+                                    Appearance="Secondary"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="Правило при создании фильтра"
+                                    TextWrapping="WrapWithOverflow" />
+                                <Separator Visibility="Hidden" Height="5"/>
+                                <ComboBox
+                                    IsEnabled="{Binding ToggleButtonEnabled}"
+                                    ItemsSource="{Binding FilterOptions}"
+                                    SelectedItem="{Binding FilterOption,Mode=TwoWay}" 
+                                    DisplayMemberPath="Name"/>
+                            </StackPanel>
+                        </ui:Card>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+            
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="75"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <ui:CardControl
+                    Grid.Row="0"
+                    VerticalAlignment="Top"
+                    Margin="10, 5"
+                    Padding="20,10,20,10"
+                    Icon="{ui:SymbolIcon FilterSync24}">
+                    <ui:CardControl.Header>
+                        <StackPanel>
+                            <ui:TextBlock
+                                FontTypography="BodyStrong"
+                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                Text="Фильтр"
+                                TextWrapping="WrapWithOverflow" />
+                            <ui:TextBlock
+                                Appearance="Secondary"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="Фильтр по наименованию"
+                                TextWrapping="WrapWithOverflow" />
+                        </StackPanel>
+                    </ui:CardControl.Header>
+                    <ui:TextBox
+                        HorizontalAlignment="Left"
+                        PlaceholderText="Введите наименование инженерной системы..."
+                        Text="{Binding FilterByName, UpdateSourceTrigger=PropertyChanged}" />
+                </ui:CardControl>
+                
+                <ui:Card Grid.Row="1" Margin="10, 5" VerticalAlignment="Top" VerticalContentAlignment="Top">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/> 
+                            <RowDefinition Height="*"/> 
+                        </Grid.RowDefinitions>
+                        
+                        <Grid Grid.Row="0" Margin="13,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/> 
+                                <ColumnDefinition Width="2.5*"/> 
+                                <ColumnDefinition Width="1.5*"/> 
+                                <ColumnDefinition Width="100"/>
+                            </Grid.ColumnDefinitions>
+                            <CheckBox Grid.Column="0"
+                                      IsChecked="{Binding IsCheckedAllSystems}" />
+                            <ui:TextBlock Grid.Column="1"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Appearance="Secondary"
+                                          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                          Text="Имя системы"
+                                          TextWrapping="WrapWithOverflow" />
+                        
+                            <ui:TextBlock Grid.Column="2"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Appearance="Secondary"
+                                          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                          Text="Сокращение системы"
+                                          TextWrapping="WrapWithOverflow" />
+                        
+                            <ui:TextBlock Grid.Column="3"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Appearance="Secondary"
+                                          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                          Text="ID системы"
+                                          TextWrapping="WrapWithOverflow" />
+                        </Grid>
+                        
+                         <ListBox 
+                             Grid.Row="1"
+                             ItemsSource="{Binding EngineeringSystems}"
+                             SelectedItem="{Binding EngineeringSystem}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30"/>
+                                            <ColumnDefinition Width="2.5*"/>
+                                            <ColumnDefinition Width="1.5*"/>
+                                            <ColumnDefinition Width="100"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <CheckBox
+                                            Grid.Column="0"
+                                            IsChecked="{Binding IsChecked}"/>
+                                        
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Text="{Binding NameSystem}" />
+                
+                                        <TextBlock
+                                            Grid.Column="2"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Text="{Binding CutSystemName}"/>
+                                        
+                                        <TextBlock
+                                            Grid.Column="3"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Text="{Binding SystemId}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </ui:Card>
+            </Grid>
+        </Grid>
+    </Grid>
+</ui:FluentWindow>

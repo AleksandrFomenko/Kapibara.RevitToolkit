@@ -1,0 +1,26 @@
+<Project Sdk="Nice3point.Revit.Sdk/6.2.2">
+
+    <PropertyGroup>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- Revit Dependencies -->
+        <PackageReference Include="Nice3point.Revit.Toolkit"/>
+        <PackageReference Include="Nice3point.Revit.Extensions"/>
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPI"/>
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI"/>
+
+        <!-- MVVM -->
+        <PackageReference Include="CommunityToolkit.Mvvm"/>
+
+        <!--Other-->
+        <PackageReference Include="System.Text.Json" Condition="'$(TargetFramework)' == 'net48'"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\libs\WPF.UI\source\WPF.UI.Abstractions\WPF.UI.Abstractions.csproj"/>
+        <ProjectReference Include="..\..\libs\WPF.UI\source\WPF.UI\WPF.UI.csproj"/>
+    </ItemGroup>
+</Project>
