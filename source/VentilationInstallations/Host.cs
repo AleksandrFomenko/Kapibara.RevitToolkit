@@ -1,4 +1,4 @@
-using KapibaraUI.Services.Appearance;
+using Kapibara.Core;
 using Microsoft.Extensions.DependencyInjection;
 using VentilationInstallations.Model;
 using VentilationInstallations.Views;

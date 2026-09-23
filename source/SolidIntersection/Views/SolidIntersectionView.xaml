@@ -59,12 +59,12 @@
                                 <StackPanel>
                                     <ui:TextBlock
                                         Text="Параметр"
-                                        Foreground="{StaticResource TextFillColorPrimaryBrush}"
+                                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                         TextWrapping="WrapWithOverflow"
                                         FontTypography="BodyStrong"/>
                                     <ui:TextBlock
                                         Appearance="Secondary"
-                                        Foreground="{StaticResource TextFillColorSecondaryBrush}"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                         Text="выберите заполняемый параметр"
                                         TextWrapping="WrapWithOverflow" />
                                     <Separator Visibility="Hidden" Height="5"/>
@@ -78,12 +78,12 @@
                                 <StackPanel>
                                     <ui:TextBlock
                                         Text="Единое значение"
-                                        Foreground="{StaticResource TextFillColorPrimaryBrush}"
+                                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                         TextWrapping="WrapWithOverflow"
                                         FontTypography="BodyStrong"/>
                                     <ui:TextBlock
                                         Appearance="Secondary"
-                                        Foreground="{StaticResource TextFillColorSecondaryBrush}"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                         Text="всем выбранным элементам"
                                         TextWrapping="WrapWithOverflow" />
                                     <Separator Visibility="Hidden" Height="5"/>
@@ -102,14 +102,14 @@
                                     <ui:TextBlock 
                                         Grid.Row="0"
                                         Text="Значение"
-                                        Foreground="{StaticResource TextFillColorPrimaryBrush}"
+                                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                         TextWrapping="WrapWithOverflow"
                                         FontTypography="BodyStrong"/>
                                     
                                     <ui:TextBlock
                                         Grid.Row="1"
                                         Appearance="Secondary"
-                                        Foreground="{StaticResource TextFillColorSecondaryBrush}"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                         Text="укажите значение параметра для всех элементов"
                                         TextWrapping="WrapWithOverflow" />
                                     <TextBox
@@ -143,12 +143,12 @@
                         <StackPanel>
                             <ui:TextBlock
                                 FontTypography="BodyStrong"
-                                Foreground="{StaticResource TextFillColorPrimaryBrush}"
+                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                 Text="Фильтр"
                                 TextWrapping="WrapWithOverflow" />
                             <ui:TextBlock
                                 Appearance="Secondary"
-                                Foreground="{StaticResource TextFillColorSecondaryBrush}"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                 Text="Фильтр по наименованию"
                                 TextWrapping="WrapWithOverflow" />
                         </StackPanel>
@@ -182,14 +182,14 @@
                                          VerticalAlignment="Center"
                                          HorizontalAlignment="Center"
                                          Appearance="Secondary"
-                                         Foreground="{StaticResource TextFillColorSecondaryBrush}"
+                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                          Text="Наименование" />
                            <ui:TextBlock Grid.Column="2"
                                          Visibility="{Binding VisibleTextBox}"
                                          VerticalAlignment="Center"
                                          HorizontalAlignment="Center"
                                          Appearance="Secondary"
-                                         Foreground="{StaticResource TextFillColorSecondaryBrush}"
+                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                          Text="Значение параметра" />
                        </Grid>
                        

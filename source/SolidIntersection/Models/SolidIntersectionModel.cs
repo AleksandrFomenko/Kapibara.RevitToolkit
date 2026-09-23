@@ -1,4 +1,4 @@
-﻿using Autodesk.Revit.UI;
+using Autodesk.Revit.UI;
 using Kapibara.Core;
 
 
@@ -216,7 +216,7 @@ public class SolidIntersectionModel(Document doc) : ISolidIntersectionModel
 
                 foreach (var elem in intersectionItems)
                     if (elem.TryGetParameterByName(parameterName, out var p))
-                        p?.SetValue(selectedItem.Value);
+                        p?.SetValue(value);
             }
 
             t.Commit();

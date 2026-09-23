@@ -101,11 +101,13 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button Margin="5,2"
-                                        Content="Edit1"
+                                <ui:Button Margin="5,2"
+                                        Content="Выбрать"
+                                        Icon="{ui:SymbolIcon SelectAllOn20}"
                                         Command="{Binding ClickShowCommand}"/>
-                                <Button Margin="5,2"
-                                        Content="Editff"
+                                <ui:Button Margin="5,2"
+                                        Content="3D"
+                                        Icon="{ui:SymbolIcon CopySelect20}"
                                         Command="{Binding ClickShowIsolatedCommand}"/>
                                 
                             </StackPanel>

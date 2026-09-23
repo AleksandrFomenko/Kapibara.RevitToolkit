@@ -26,7 +26,7 @@ public static class EngineeringSystems
         services.AddSingleton<SystemNameConfig>();
         services.AddSingleton<EngineeringSystemsViewModel>();
         services.AddSingleton<EngineeringSystemsView>();
-        services.AddSingleton<PluginConfig<SystemNameConfig>>();
+        services.AddSingleton(_ => new PluginConfig<SystemNameConfig>("EngineeringSystemsConfig", "config.json"));
         services.AddScoped<IThemeWatcherService, ThemeWatcherService>();
         
         var serviceProvider = services.BuildServiceProvider();

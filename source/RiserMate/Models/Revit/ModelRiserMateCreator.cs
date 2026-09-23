@@ -1,4 +1,4 @@
-﻿using Kapibara.Core;
+using Kapibara.Core;
 using Nice3point.Revit.Toolkit.External;
 using RiserMate.Abstractions;
 using RiserMate.Core;
@@ -53,10 +53,14 @@ public partial class ModelRiserMateCreator(
 
     public Task ExecuteAsync(List<HeatingRiser> heatingRisers, string parameter, IProgress<(int val, string msg)> progress = null!)
     {
-        throw new NotImplementedException();
+        return ExecuteRiserMateAsyncEvent.RaiseAsync(heatingRisers, parameter, progress);
     }
 
-    public async Task MarkActiveViewAsync(string marksHeatDevice, string marksPipe, string markPipeAccessory)
+    public Task MarkActiveViewAsync(string marksHeatDevice, string marksPipe, string markPipeAccessory)
+        => MarkActiveViewAsyncEvent.RaiseAsync(marksHeatDevice, marksPipe, markPipeAccessory);
+
+    [ExternalEvent]
+    private void MarkActiveView(string marksHeatDevice, string marksPipe, string markPipeAccessory)
     {
             if (Document!.ActiveView is not View3D view)
                 return;
@@ -87,13 +91,10 @@ public partial class ModelRiserMateCreator(
             }
     }
 
-    Task IModelRiserCreator.CreateViewsAsync(List<HeatingRiser> heatingRisers, string parameterName, string viewOption, bool isMarking,
+    public Task CreateViewsAsync(List<HeatingRiser> heatingRisers, string parameterName, string viewOption, bool isMarking,
         string marksHeatDevice, string marksPipe, string markPipeAccessory, IProgress<(int val, string msg)> progress)
-    {
-        throw new NotImplementedException();
-    }
-
-
+        => CreateViewsAsyncEvent.RaiseAsync(heatingRisers, parameterName, viewOption, isMarking,
+            marksHeatDevice, marksPipe, markPipeAccessory, progress);
     private static List<string> GetMarks<T>(T category) where T : Enum
     {
         if (typeof(T) != typeof(BuiltInCategory))
@@ -188,7 +189,7 @@ public partial class ModelRiserMateCreator(
             }
     }
     [ExternalEvent]
-    private void CreateViewsAsync(
+    private void CreateViews(
         List<HeatingRiser> heatingRisers,
         string parameterName,
         string viewOption,

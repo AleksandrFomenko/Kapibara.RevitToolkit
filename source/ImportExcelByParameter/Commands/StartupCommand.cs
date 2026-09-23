@@ -22,7 +22,7 @@ public class StartupCommand : ExternalCommand
         var doc = RevitContext.ActiveDocument;
         if (doc != null) services.AddSingleton(doc);
 
-        services.AddSingleton<PluginConfig<ImportExcelConfig>>();
+        services.AddSingleton(_ => new PluginConfig<ImportExcelConfig>("ImportExcelConfig", "config.json"));
         services.AddSingleton<ExcelByParameterModel>();
         services.AddSingleton<ImportExcelByParameterViewModel>();
         services.AddSingleton<IThemeWatcherService, ThemeWatcherService>();

@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using Kapibara.Core;
 using SortingCategories.ViewModels;
 
@@ -49,7 +49,7 @@ public class SubFamiliesModel(Document document)
                 
                 if (subElement.TryGetParameterByName(parameterSort, out var pSubSort))
                 {
-                    pSubSort?.SetValue(value + 1);
+                    if (pSubSort?.StorageType == StorageType.Double) pSubSort.SetValue(value + 1);
                 }
                 
                 if (subElement.TryGetParameterByName(parameterGroup, out var pSubGroup))
@@ -81,7 +81,7 @@ public class SubFamiliesModel(Document document)
                 
                 if (subElement.TryGetParameterByName(parameterSort, out var pSubSort))
                 {
-                    pSubSort?.SetValue(value + 0.1);
+                    if (pSubSort?.StorageType == StorageType.Double) pSubSort.SetValue(value + 0.1);
                 }
                 
                 if (subElement.TryGetParameterByName(parameterGroup, out var pSubGroup))
@@ -114,9 +114,10 @@ public class SubFamiliesModel(Document document)
                 
                 if (subElement.TryGetParameterByName(parameterSort, out var pSubSort))
                 {
-                    pSubSort?.SetValue(value + count);
+                    if (pSubSort?.StorageType == StorageType.Double) pSubSort.SetValue(value + count);
                 }
                 
+                count++;
                 if (subElement.TryGetParameterByName(parameterGroup, out var pSubGroup))
                 {
                     pSubGroup?.SetValue(groupValue);
@@ -147,9 +148,10 @@ public class SubFamiliesModel(Document document)
                 
                 if (subElement.TryGetParameterByName(parameterSort, out var pSubSort))
                 {
-                    pSubSort?.SetValue(value + count);
+                    if (pSubSort?.StorageType == StorageType.Double) pSubSort.SetValue(value + count);
                 }
                 
+                count += 0.1;
                 if (subElement.TryGetParameterByName(parameterGroup, out var pSubGroup))
                 {
                     pSubGroup?.SetValue(groupValue);
@@ -178,7 +180,7 @@ public class SubFamiliesModel(Document document)
             {
                 if (subElement.TryGetParameterByName(parameterSort, out var pSortSub))
                 {
-                    pSortSub?.SetValue(valueStr);
+                    if (pSortSub?.StorageType == StorageType.Double) pSortSub.SetValue(valueStr);
                 }
                 
                 if (subElement.TryGetParameterByName(parameterGroup, out var pSubGroup))

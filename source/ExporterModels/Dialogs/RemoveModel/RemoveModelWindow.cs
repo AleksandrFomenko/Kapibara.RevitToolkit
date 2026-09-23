@@ -10,7 +10,7 @@ namespace ExporterModels.Dialogs.RemoveModel;
 
 public static class RemoveModelWindow
 {
-    public static RemoveModelView? Show(Window? owner, Action onClosed)
+    public static RemoveModelView Show(Window? owner, Action onClosed)
     {
         var services = new ServiceCollection();
         services.AddSingleton<IThemeWatcherService, ThemeWatcherService>();
@@ -20,11 +20,10 @@ public static class RemoveModelWindow
 
         var provider = services.BuildServiceProvider();
 
-        var view = provider.GetService<RemoveModelView>();
-        if (view != null) return null;
+        var view = provider.GetRequiredService<RemoveModelView>();
         var tws = provider.GetService<IThemeWatcherService>();
         tws?.ApplyTheme();
-        view!.Owner = owner;
+        view.Owner = owner;
         view.Show();
         tws?.ApplyTheme();
         view.Closed += (_, _) => { onClosed?.Invoke(); };

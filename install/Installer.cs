@@ -3,8 +3,8 @@ using WixSharp;
 using WixSharp.CommonTasks;
 using WixSharp.Controls;
 
-const string outputName = "SU555.RevitToolkit";
-const string projectName = "SU555.RevitToolkit";
+const string outputName = "Kapibara.RevitToolkit";
+const string projectName = "Kapibara.RevitToolkit";
 
 var versioning = Versioning.CreateFromVersionStringAsync(args[0]);
 var project = new Project
@@ -25,7 +25,6 @@ var project = new Project
     }
 };
 
-var wixEntities = Generator.GenerateWixEntities(args[1..]);
 project.RemoveDialogsBetween(NativeDialogs.WelcomeDlg, NativeDialogs.CustomizeDlg);
 
 BuildSingleUserMsi();
@@ -37,7 +36,7 @@ void BuildSingleUserMsi()
     project.OutFileName = $"{outputName}-{versioning.Version}-SingleUser";
     project.Dirs =
     [
-        new InstallDir(@"%AppDataFolder%\Autodesk\Revit\Addins\", wixEntities)
+        new InstallDir(@"%AppDataFolder%\Autodesk\Revit\Addins\", Generator.GenerateWixEntities(args[1..]))
     ];
     project.BuildMsi();
 }
@@ -46,12 +45,15 @@ void BuildMultiUserUserMsi()
 {
     project.Scope = InstallScope.perMachine;
     project.OutFileName = $"{outputName}-{versioning.Version}-MultiUser";
-    project.Dirs =
-    [
-        new InstallDir(
-            versioning.VersionPrefix.Major >= 2027
-                ? @"%ProgramFiles%\Autodesk\Revit\Addins"
-                : @"%CommonAppDataFolder%\Autodesk\Revit\Addins", wixEntities)
-    ];
+    // Revit 2027 changed the all-user add-in location; the product version is unrelated.
+    project.Dirs = Generator.GenerateWixEntities(args[1..])
+        .Cast<Dir>()
+        .GroupBy(directory => int.Parse(directory.Name) >= 2027
+            ? @"%ProgramFiles%\Autodesk\Revit\Addins"
+            : @"%CommonAppDataFolder%\Autodesk\Revit\Addins")
+        .Select((group, index) => index == 0
+            ? new InstallDir(group.Key, group.Cast<WixEntity>().ToArray())
+            : new Dir(group.Key, group.Cast<WixEntity>().ToArray()))
+        .ToArray();
     project.BuildMsi();
 }

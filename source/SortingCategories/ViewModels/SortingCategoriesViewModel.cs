@@ -22,6 +22,7 @@ public sealed partial class SortingCategoriesViewModel : ObservableObject
     {
         _model = model;
         _revitCategories = [];
+        _model.RevitCategories = _revitCategories;
         ProjectParameters = _model.GetParameters();
         _projectCategory = _model.GetCategory();
         Options = ParametersMainFamiliesModel.GetOptions();

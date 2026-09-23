@@ -1,4 +1,4 @@
-﻿using System.Windows.Controls;
+using System.Windows.Controls;
 using Kapibara.Core;
 using SheetManager.ViewModels;
 using Wpf.Ui.Abstractions.Controls;
@@ -13,6 +13,7 @@ public partial class CreateSheetsView : INavigableView<CreateSheetsViewModel>
     {
         themeService.Watch(this);
         ViewModel = viewModel;
+        DataContext = viewModel;
         InitializeComponent();
     }
 }

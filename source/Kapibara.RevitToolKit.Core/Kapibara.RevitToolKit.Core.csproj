@@ -15,7 +15,7 @@
         <PackageReference Include="CommunityToolkit.Mvvm"/>
 
         <!--Other-->
-        <PackageReference Include="System.Text.Json" Condition="'$(TargetFramework)' == 'net48'"/>
+        <PackageReference Include="System.Text.Json" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection"/>
     </ItemGroup>
 

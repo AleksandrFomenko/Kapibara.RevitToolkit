@@ -108,6 +108,13 @@ public sealed partial class EngineeringSystemsViewModel : ObservableObject
                 true)
         ];
         Option = Options.FirstOrDefault()!;
+        FilterOptions =
+        [
+            new FilterOption("Не содержит", "CreateNotContainsRule"),
+            new FilterOption("Не равно", "CreateNotEqualsRule"),
+            new FilterOption("Не начинается с", "CreateNotBeginsWithRule")
+        ];
+        FilterOption = FilterOptions.First();
         ReloadEngineeringSystems();
 
         SystemParameters =

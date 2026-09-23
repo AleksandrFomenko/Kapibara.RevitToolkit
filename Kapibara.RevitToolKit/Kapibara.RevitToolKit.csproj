@@ -2,6 +2,7 @@
 
     <PropertyGroup>
         <UseWPF>true</UseWPF>
+        <PublishAddin>true</PublishAddin>
         <DeployAddin>true</DeployAddin>
         <LaunchRevit>true</LaunchRevit>
         <IsRepackable>false</IsRepackable>

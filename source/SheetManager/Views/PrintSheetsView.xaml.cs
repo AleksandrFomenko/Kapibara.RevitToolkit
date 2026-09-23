@@ -1,4 +1,4 @@
-﻿using Kapibara.Core;
+using Kapibara.Core;
 using SheetManager.ViewModels;
 using Wpf.Ui.Abstractions.Controls;
 
@@ -12,6 +12,7 @@ public partial class PrintSheetsView : INavigableView<PrintSheetsViewModel>
     {
         themeService.Watch(this);
         ViewModel = viewModel;
+        DataContext = viewModel;
         InitializeComponent();
     }
 }

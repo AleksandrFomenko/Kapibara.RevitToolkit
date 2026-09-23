@@ -10,6 +10,7 @@ public class StartupCommand : ExternalCommand
 {
     public override void Execute()
     {
-       
+        Host.Register();
+        Host.Run(RevitContext.UiApplication.MainWindowHandle);
     }
 }

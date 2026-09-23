@@ -10,7 +10,7 @@ namespace ExporterModels.Dialogs.AddProject;
 
 public static class AddProjectWindow
 {
-    public static AddProjectView? Show(Window? owner, Action onClosed)
+    public static AddProjectView Show(Window? owner, Action onClosed)
     {
         var services = new ServiceCollection();
         services.AddSingleton<IThemeWatcherService, ThemeWatcherService>();
@@ -20,13 +20,12 @@ public static class AddProjectWindow
 
         var provider = services.BuildServiceProvider();
 
-        var view = provider.GetService<AddProjectView>();
-        var tws = provider.GetService<IThemeWatcherService>();
-        if (view != null) return null;
-        view!.Owner = owner;
+        var view = provider.GetRequiredService<AddProjectView>();
+        var tws = provider.GetRequiredService<IThemeWatcherService>();
+        view.Owner = owner;
+        view.Closed += (_, _) => { onClosed(); };
         view.Show();
-        tws?.ApplyTheme();
-        view.Closed += (_, _) => { onClosed?.Invoke(); };
+        tws.ApplyTheme();
         return view;
     }
 }

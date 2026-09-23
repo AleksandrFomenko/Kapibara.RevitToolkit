@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 
 // ReSharper disable once CheckNamespace
 namespace Kapibara.Core;
@@ -98,7 +98,7 @@ public static class ParameterExtensions
                         // ingored
                     }
 #else
-            var id = category.Id.GetIntValue();
+            var id = category.Id.GetValue();
             var underlyingType = Enum.GetUnderlyingType(typeof(BuiltInCategory));
             var boxed = underlyingType == typeof(long) ? (object)id : (object)(int)id;
 

@@ -21,6 +21,10 @@ x86/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 build/
+!/build/
+!/build/**/
+/build/**/bin/
+/build/**/obj/
 [Ll]og/
 [Ll]ogs/
 

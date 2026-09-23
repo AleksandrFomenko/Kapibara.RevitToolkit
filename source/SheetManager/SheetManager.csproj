@@ -12,6 +12,7 @@
         <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI"/>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection"/>
         <PackageReference Include="CommunityToolkit.Mvvm"/>
+        <PackageReference Include="Ookii.Dialogs.Wpf"/>
     </ItemGroup>
 
     <ItemGroup>

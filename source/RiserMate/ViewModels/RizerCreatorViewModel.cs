@@ -1,4 +1,4 @@
-﻿using Kapibara.Core;
+using Kapibara.Core;
 using Kapibara.RevitToolKit.Core.ProgressBar;
 using RiserMate.Abstractions;
 using RiserMate.Entities;
@@ -43,7 +43,7 @@ public partial class RizerCreatorViewModel : ObservableObject
         _model = model;
         _config = config;
 
-        Choices = Enum.GetValues<Choice>().ToList();
+        Choices = Enum.GetValues(typeof(Choice)).Cast<Choice>().ToList();
         ViewTypes3D = _model.GetTypes3D();
         MarksHeatDevice = _model.GetMarksHeatDevice();
         MarksPipe = _model.GetMarksPipe();

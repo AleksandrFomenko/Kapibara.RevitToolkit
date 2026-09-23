@@ -1,4 +1,4 @@
-using KapibaraUI.Services.Appearance;
+using Kapibara.Core;
 using VentilationInstallations.ViewModels;
 
 namespace VentilationInstallations.Views;
@@ -10,7 +10,7 @@ public sealed partial class VentilationInstallationsView
         IThemeWatcherService themeWatcherService)
     {
         themeWatcherService.Watch(this);
-        themeWatcherService.SetConfigTheme();
+        themeWatcherService.ApplyTheme();
         DataContext = viewModel;
         InitializeComponent();
     }

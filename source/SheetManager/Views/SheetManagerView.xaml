@@ -7,7 +7,10 @@
     xmlns:ui="http://Kapibara/xaml"
     xmlns:views="clr-namespace:SheetManager.Views"
     mc:Ignorable="d"
-    ResizeMode="NoResize"
+    Title="{Binding Title}"
+    MinHeight="650"
+    MinWidth="1050"
+    ResizeMode="CanResize"
     WindowStartupLocation="CenterScreen"
     Height="800"
     Width="1200"
@@ -17,31 +20,36 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ui:TitleBar Grid.Row="0" Title="Sheet Manager"/>
+        <ui:TitleBar Grid.Row="0" Title="{Binding Title}"/>
         <ui:NavigationView Grid.Row="1"
                            x:Name="RootNavigationView"
                            FontSize="10"
                            PaneDisplayMode="LeftFluent">
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem
-                    Content="Создать"
+                    Content="Создание листов"
                     FontSize="14"
                     Icon="{ui:SymbolIcon DocumentQueueAdd24}"
                     TargetPageType="{x:Type views:CreateSheetsView}" />
                 
                 <ui:NavigationViewItem
-                    Content="Номер"
-                    FontSize="14"
-                    Icon="{ui:SymbolIcon TextNumberListLtr24}"
-                    TargetPageType="{x:Type views:PrintSheetsView}" />
-                
-                <ui:NavigationViewItem
-                    Content="Печать"
+                    Content="Печать листов"
                     FontSize="14"
                     Icon="{ui:SymbolIcon Print24}"
                     TargetPageType="{x:Type views:PrintSheetsView}" />
+
+                <ui:NavigationViewItem
+                    Content="Нумерация"
+                    FontSize="14"
+                    Icon="{ui:SymbolIcon TextNumberListLtr24}"
+                    IsEnabled="False" />
             </ui:NavigationView.MenuItems>
         </ui:NavigationView>
+        <StackPanel Grid.Row="2" Margin="24,8,24,12">
+            <TextBlock Text="{Binding DocumentName}" FontWeight="SemiBold"/>
+            <TextBlock Text="{Binding Status}" TextWrapping="Wrap" Margin="0,4,0,0"/>
+        </StackPanel>
     </Grid>
 </ui:FluentWindow>

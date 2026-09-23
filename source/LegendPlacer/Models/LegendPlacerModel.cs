@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -79,7 +79,14 @@ namespace LegendPlacer.Models
             
             var checkedSheetIds = folders
                 .SelectMany(GetCheckedSheetsRecursively)
-                .Select(si => new ElementId(si.ElemId))
+                .Select(si =>
+                {
+#if REVIT2024_OR_GREATER
+                    return new ElementId(si.ElemId);
+#else
+                    return new ElementId(checked((int)si.ElemId));
+#endif
+                })
                 .ToList();
             using (var t = new Transaction(_doc,"Legend placer"))
             {

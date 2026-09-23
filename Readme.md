@@ -58,6 +58,7 @@ We recommend JetBrains Rider as preferred IDE, since it has outstanding .NET sup
 from [here](https://www.jetbrains.com/rider/).
 
 1. Open JetBrains Rider
+   and open `Kapibara.RevitToolkit.slnx`.
 2. In the `Solutions Configuration` drop-down menu, select `Release.R27` or `Debug.R27`. Suffix `R27` means compiling for the Revit 2027.
 3. After the solution loads, you can build it by clicking on `Build -> Build Solution`.
 4. `Debug` button will start Revit add-in in the debug mode.
@@ -81,13 +82,19 @@ To execute your ModularPipelines build locally, you can follow these steps:
 
    Compile:
    ```shell
-   cd build; dotnet run
+   dotnet run --project build/Build.csproj
    ```
 
    Create installer:
    ```shell
-   cd build; dotnet run -- pack
+   dotnet run --project build/Build.csproj -- pack
    ```
+
+The `Pack` run configuration in Rider runs the same pipeline. It builds all six
+`Release.R22`–`Release.R27` configurations and writes `SingleUser.msi` and
+`MultiUser.msi` packages to `output`. Set `Build:Version` in `build/appsettings.json`
+to override the version inferred from Git. Packaging prepares the add-in files
+without deploying them to the local Revit installation.
 
    This command will execute the ModularPipelines build defined in your project.
 
@@ -244,20 +251,20 @@ To extend or reduce the range of supported Revit API versions, you need to updat
 Solution configurations determine which projects are built and how they are configured.
 
 To support multiple Revit versions:
-- Open the `.sln` file.
+- Open `Kapibara.RevitToolkit.slnx`.
 - Add or remove configurations for each Revit version.
 
 Example:
 
-```text
-GlobalSection(SolutionConfigurationPlatforms) = preSolution
-    Debug.R25|Any CPU = Debug.R25|Any CPU
-    Debug.R26|Any CPU = Debug.R26|Any CPU
-    Debug.R27|Any CPU = Debug.R27|Any CPU
-    Release.R25|Any CPU = Release.R25|Any CPU
-    Release.R26|Any CPU = Release.R26|Any CPU
-    Release.R27|Any CPU = Release.R27|Any CPU
-EndGlobalSection
+```xml
+<Configurations>
+    <BuildType Name="Debug.R25" />
+    <BuildType Name="Debug.R26" />
+    <BuildType Name="Debug.R27" />
+    <BuildType Name="Release.R25" />
+    <BuildType Name="Release.R26" />
+    <BuildType Name="Release.R27" />
+</Configurations>
 ```
 
 For example `Debug.R27` is the Debug configuration for Revit 2027 version.

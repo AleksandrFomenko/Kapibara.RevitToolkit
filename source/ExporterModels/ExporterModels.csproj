@@ -1,4 +1,4 @@
-﻿<Project Sdk="Nice3point.Revit.Sdk/6.2.2">
+<Project Sdk="Nice3point.Revit.Sdk/6.2.2">
 
     <PropertyGroup>
         <UseWPF>true</UseWPF>
@@ -13,6 +13,7 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection"/>
         <PackageReference Include="CommunityToolkit.Mvvm"/>
         <PackageReference Include="Ookii.Dialogs.Wpf" />
+        <Reference Include="System.Net.Http" Condition="'$(TargetFramework)' == 'net48'" />
     </ItemGroup>
 
     <ItemGroup>

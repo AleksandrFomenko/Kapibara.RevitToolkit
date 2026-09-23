@@ -1,46 +1,51 @@
-﻿<Page x:Class="SheetManager.Views.CreateSheetsView"
+<Page x:Class="SheetManager.Views.CreateSheetsView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:ui="http://Kapibara/xaml"
-      ScrollViewer.CanContentScroll="False">
-    <Grid Margin="10">
-        
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="300"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        
-        <ui:Card Grid.Row="0">
-            <StackPanel Orientation="Horizontal">
-                <DockPanel LastChildFill="True">
-                    <StackPanel>
-                        <TextBox 
-                            DockPanel.Dock="Left"
-                            Text="{Binding Prefix}"/>
-                        <ui:NumberBox
-                            DockPanel.Dock="Left"
-                            PlaceholderText="Номер"
-                            MaxDecimalPlaces="0"
-                            Value="{Binding NumberFrame}"/>
-                        <TextBox 
-                            DockPanel.Dock="Left"
-                            Text="{Binding Suffix}"/>
-                    </StackPanel>
-                </DockPanel>
-                
-                <ComboBox
-                    ItemsSource="{Binding FramesProject}"
-                    SelectedItem="{Binding SelectedFrame}"/>
-            </StackPanel>
-            
-           
-        </ui:Card>
-        
-        <ui:Card Grid.Row="1">
-            
-            
-        </ui:Card>
-    </Grid>
+      xmlns:ui="http://Kapibara/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="24" MaxWidth="760" HorizontalAlignment="Stretch">
+            <TextBlock Text="Создание листов" FontSize="24" FontWeight="SemiBold" Margin="0,0,0,20"/>
+            <ui:Card Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Рамка (основная надпись)" Margin="0,0,0,8"/>
+                    <ComboBox ItemsSource="{Binding TitleBlocks}" SelectedItem="{Binding SelectedTitleBlock}" DisplayMemberPath="Name"/>
+                    <TextBlock Text="Количество листов" Margin="0,16,0,8"/>
+                    <ui:NumberBox Value="{Binding Count, Mode=TwoWay}" Minimum="1" Maximum="2147483647"
+                                  MaxDecimalPlaces="0" Width="180" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </ui:Card>
+            <ui:Card Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Номера новых листов" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/><ColumnDefinition Width="180"/><ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Margin="0,0,12,0">
+                            <TextBlock Text="Префикс" Margin="0,0,0,8"/>
+                            <TextBox Text="{Binding Prefix, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="Начальный номер" Margin="0,0,0,8"/>
+                            <ui:NumberBox Value="{Binding StartValue, Mode=TwoWay}" Minimum="0" Maximum="2147483647" MaxDecimalPlaces="0"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Margin="12,0,0,0">
+                            <TextBlock Text="Суффикс" Margin="0,0,0,8"/>
+                            <TextBox Text="{Binding Suffix, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                    </Grid>
+                    <CheckBox Content="Записать в системный параметр «Номер листа»"
+                              IsChecked="{Binding IsSystemParameter}" Margin="0,16,0,4"/>
+                    <TextBlock Text="Если номер занят, будет добавлен суффикс -1, -2 и далее."
+                               TextWrapping="Wrap" Margin="0,0,0,12"/>
+                    <CheckBox Content="Записать в пользовательский параметр листа или рамки"
+                              IsChecked="{Binding IsUserParameter}" Margin="0,0,0,8"/>
+                    <ComboBox ItemsSource="{Binding Parameters}" SelectedItem="{Binding SelectedParameter}"
+                              IsEnabled="{Binding IsUserParameter}"/>
+                </StackPanel>
+            </ui:Card>
+            <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Margin="0,0,0,16"/>
+            <ui:Button Content="Создать листы" Appearance="Primary" Command="{Binding CreateCommand}" HorizontalAlignment="Right"/>
+        </StackPanel>
+    </ScrollViewer>
 </Page>

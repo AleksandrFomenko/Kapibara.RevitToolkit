@@ -1,4 +1,4 @@
-﻿using Kapibara.Core;
+using Kapibara.Core;
 using RiserMate.Abstractions;
 
 namespace RiserMate.Implementation;
@@ -42,53 +42,8 @@ public class FilterCreationService : IFilterCreationService
     }
     
     private List<BuiltInCategory> GetCategoriesByParameter(string parameterName)
-    {
-        var bindingMap = _document?.ParameterBindings;
-        var iterator = bindingMap?.ForwardIterator();
-        iterator?.Reset();
-
-        while (iterator != null && iterator.MoveNext())
-        {
-            var definition = iterator.Key;
-            var binding = iterator.Current;
-
-            if (definition != null && definition.Name == parameterName)
-            {
-                var categories = binding switch
-                {
-                    InstanceBinding instanceBinding => instanceBinding.Categories,
-                    TypeBinding typeBinding => typeBinding.Categories,
-                    _ => null
-                };
-
-                if (categories != null)
-                {
-                    var builtInCategories = new List<BuiltInCategory>();
-                    var catIterator = categories.ForwardIterator();
-                    catIterator.Reset();
-
-                    while (catIterator.MoveNext())
-                    {
-                        var category = catIterator.Current as Category;
-                        if (category == null)
-                            continue;
-
-                        var id = category.Id.GetValue();
-                        
-                        if (Enum.IsDefined(typeof(BuiltInCategory), id))
-                        {
-                            var bic = (BuiltInCategory)id;
-                            builtInCategories.Add(bic);
-                        }
-                    }
-
-                    return builtInCategories;
-                }
-            }
-        }
-
-        return null!;
-    }
+        => _document?.GetCategoriesByParameter(parameterName)
+           ?? throw new InvalidOperationException($"Не найдены категории параметра '{parameterName}'.");
     private string GetUniqueFilterName(string parameterName, string baseName, int suffix = 0)
     {
         var filterCollector = new FilteredElementCollector(_document)
