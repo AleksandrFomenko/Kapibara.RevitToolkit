@@ -1,0 +1,127 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Debug.R22" />
+    <BuildType Name="Debug.R23" />
+    <BuildType Name="Debug.R24" />
+    <BuildType Name="Debug.R25" />
+    <BuildType Name="Debug.R26" />
+    <BuildType Name="Debug.R27" />
+    <BuildType Name="Release.R22" />
+    <BuildType Name="Release.R23" />
+    <BuildType Name="Release.R24" />
+    <BuildType Name="Release.R25" />
+    <BuildType Name="Release.R26" />
+    <BuildType Name="Release.R27" />
+  </Configurations>
+  <Folder Name="/Automation/">
+    <Project Path="build/Build.csproj" Type="1dad0276-a740-44b4-b039-4db3a68b41ad">
+      <BuildType Solution="Debug.R22|*" Project="Debug" />
+      <BuildType Solution="Debug.R23|*" Project="Debug" />
+      <BuildType Solution="Debug.R24|*" Project="Debug" />
+      <BuildType Solution="Debug.R25|*" Project="Debug" />
+      <BuildType Solution="Debug.R26|*" Project="Debug" />
+      <BuildType Solution="Debug.R27|*" Project="Debug" />
+      <BuildType Solution="Release.R22|*" Project="Release" />
+      <BuildType Solution="Release.R23|*" Project="Release" />
+      <BuildType Solution="Release.R24|*" Project="Release" />
+      <BuildType Solution="Release.R25|*" Project="Release" />
+      <BuildType Solution="Release.R26|*" Project="Release" />
+      <BuildType Solution="Release.R27|*" Project="Release" />
+      <Build Project="false" />
+    </Project>
+    <Project Path="install/Installer.csproj" Type="62e61232-ecfc-4aab-a9b8-bb7f805ff201">
+      <BuildType Solution="Debug.R22|*" Project="Debug" />
+      <BuildType Solution="Debug.R23|*" Project="Debug" />
+      <BuildType Solution="Debug.R24|*" Project="Debug" />
+      <BuildType Solution="Debug.R25|*" Project="Debug" />
+      <BuildType Solution="Debug.R26|*" Project="Debug" />
+      <BuildType Solution="Debug.R27|*" Project="Debug" />
+      <BuildType Solution="Release.R22|*" Project="Release" />
+      <BuildType Solution="Release.R23|*" Project="Release" />
+      <BuildType Solution="Release.R24|*" Project="Release" />
+      <BuildType Solution="Release.R25|*" Project="Release" />
+      <BuildType Solution="Release.R26|*" Project="Release" />
+      <BuildType Solution="Release.R27|*" Project="Release" />
+      <Build Project="false" />
+    </Project>
+  </Folder>
+  <Folder Name="/BIM/">
+    <Project Path="source/ClashHub/ClashHub.csproj" />
+    <Project Path="source/ExporterModels/ExporterModels.csproj" />
+    <Project Path="source/WorkSetLinkFiles/WorkSetLinkFiles.csproj" />
+  </Folder>
+  <Folder Name="/General/">
+    <Project Path="source/ActiveView/ActiveView.csproj" />
+    <Project Path="source/Axes/Axes.csproj" />
+    <Project Path="source/AxesLevels/AxesLevels.csproj" />
+    <Project Path="source/ImportExcelByParameter/ImportExcelByParameter.csproj" />
+    <Project Path="source/LegendPlacer/LegendPlacer.csproj" />
+    <Project Path="source/LevelByFloor/LevelByFloor.csproj" />
+    <Project Path="source/SheetManager/SheetManager.csproj" />
+    <Project Path="source/SolidIntersection/SolidIntersection.csproj" />
+    <Project Path="source/SortingCategories/SortingCategories.csproj" />
+    <Project Path="source/ViewByParameter/ViewByParameter.csproj" />
+  </Folder>
+  <Folder Name="/MEP/">
+    <Project Path="source/EngineeringSystems/EngineeringSystems.csproj" />
+    <Project Path="source/Marking/Marking.csproj" />
+    <Project Path="source/RiserMate/RiserMate.csproj" />
+  </Folder>
+  <Folder Name="/Settings/">
+    <Project Path="source/Settings/Settings.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitignore" />
+    <File Path="build/appsettings.json" />
+    <File Path="Changelog.md" />
+    <File Path="Readme.md" />
+  </Folder>
+  <Project Path="Kapibara.RevitToolKit/Kapibara.RevitToolKit.csproj" />
+  <Project Path="libs/WPF.UI/source/WPF.UI.Abstractions/WPF.UI.Abstractions.csproj">
+    <BuildType Solution="Debug.R22|*" Project="Debug" />
+    <BuildType Solution="Debug.R23|*" Project="Debug" />
+    <BuildType Solution="Debug.R24|*" Project="Debug" />
+    <BuildType Solution="Debug.R25|*" Project="Debug" />
+    <BuildType Solution="Debug.R26|*" Project="Debug" />
+    <BuildType Solution="Debug.R27|*" Project="Debug" />
+    <BuildType Solution="Release.R22|*" Project="Release" />
+    <BuildType Solution="Release.R23|*" Project="Release" />
+    <BuildType Solution="Release.R24|*" Project="Release" />
+    <BuildType Solution="Release.R25|*" Project="Release" />
+    <BuildType Solution="Release.R26|*" Project="Release" />
+    <BuildType Solution="Release.R27|*" Project="Release" />
+  </Project>
+  <Project Path="libs/WPF.UI/source/WPF.UI/WPF.UI.csproj">
+    <BuildType Solution="Debug.R22|*" Project="Debug" />
+    <BuildType Solution="Debug.R23|*" Project="Debug" />
+    <BuildType Solution="Debug.R24|*" Project="Debug" />
+    <BuildType Solution="Debug.R25|*" Project="Debug" />
+    <BuildType Solution="Debug.R26|*" Project="Debug" />
+    <BuildType Solution="Debug.R27|*" Project="Debug" />
+    <BuildType Solution="Release.R22|*" Project="Release" />
+    <BuildType Solution="Release.R23|*" Project="Release" />
+    <BuildType Solution="Release.R24|*" Project="Release" />
+    <BuildType Solution="Release.R25|*" Project="Release" />
+    <BuildType Solution="Release.R26|*" Project="Release" />
+    <BuildType Solution="Release.R27|*" Project="Release" />
+  </Project>
+  <Project Path="source/Kapibara.RevitToolKit.Core/Kapibara.RevitToolKit.Core.csproj" />
+  <Project Path="source/TestUI/TestUI.csproj">
+    <BuildType Solution="Release.R22|*" Project="Debug.R22" />
+    <BuildType Solution="Release.R23|*" Project="?" />
+    <BuildType Solution="Release.R24|*" Project="?" />
+    <BuildType Solution="Release.R26|*" Project="?" />
+    <Platform Solution="Release.R23|*" Project="?" />
+    <Platform Solution="Release.R24|*" Project="?" />
+    <Platform Solution="Release.R26|*" Project="?" />
+    <Build Solution="Debug.R25|*" Project="false" />
+    <Build Solution="Debug.R27|*" Project="false" />
+    <Build Solution="Release.R22|*" Project="false" />
+    <Build Solution="Release.R23|*" Project="false" />
+    <Build Solution="Release.R24|*" Project="false" />
+    <Build Solution="Release.R25|*" Project="false" />
+    <Build Solution="Release.R26|*" Project="false" />
+    <Build Solution="Release.R27|*" Project="false" />
+  </Project>
+  <Project Path="source/VentilationInstallations/VentilationInstallations.csproj" />
+</Solution>
